@@ -4,6 +4,12 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Title>Blazor.DaisyUI</Title>
+    <Version>0.0.1-alpha</Version>
+    <Authors>Koja Dennis</Authors>
+    <RepositoryUrl>https://github.com/Denny09310/Blazor.DaisyUI</RepositoryUrl>
+    <PackageTags>csharp blazor web tailwindcss</PackageTags>
+    <PackageReleaseNotes>This is a very early stage version, I want to add a lot of things</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
