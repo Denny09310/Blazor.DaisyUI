@@ -1,0 +1,81 @@
+@using BlazorComponentUtilities
+@using Blazor.DaisyUI.Enums
+
+@namespace Blazor.DaisyUI
+
+<div @attributes="AdditionalAttributes" class="@ContainerClass">
+    <div class="@InnerClass">
+        @if (!string.IsNullOrEmpty(Image))
+        {
+            <img src="@Image" alt="Persona" />
+        }
+        else if (!string.IsNullOrEmpty(Initials))
+        {
+            <span class="@TextClass">@Initials</span>
+        }
+    </div>
+</div>
+
+@code
+{
+    [Parameter]
+    public string? Image { get; set; }
+
+    [Parameter]
+    public string? Initials { get; set; }
+
+    [Parameter]
+    public bool? Online { get; set; }
+
+    [Parameter]
+    public bool Rounded { get; set; }
+
+    [Parameter]
+    public Size Size { get; set; } = Size.Sm;
+
+    [Parameter]
+    public Mask Mask { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    public string ContainerClass => new CssBuilder("avatar")
+        .AddClass("placeholder", when: !string.IsNullOrEmpty(Initials))
+        .AddClass(SelectStatus, when: Online.HasValue)
+        .Build();
+
+    public string InnerClass => new CssBuilder()
+        .AddClass("rounded-full", Rounded)
+        .AddClass("bg-base-300 text-base-content", !string.IsNullOrEmpty(Initials))
+        .AddClass(SwitchSize, Size is not Size.None)
+        .AddClass(SwitchMask, !Rounded && Mask is not Mask.None)
+        .Build();
+
+    public string TextClass => new CssBuilder()
+        .AddClass(SwitchTextSize, when: Size is not Size.None)
+        .Build();
+
+    private string SelectStatus() => Online!.Value ? "online" : "offline";
+
+    private string SwitchSize() => Size switch
+    {
+        Size.Xs => "w-8",
+        Size.Sm => "w-12",
+        Size.Md => "w-16",
+        Size.Lg => "w-20",
+        Size.Xl => "w-32",
+        _ => throw new NotImplementedException()
+    };
+
+    private string SwitchTextSize() => Size switch
+    {
+        Size.Xs => "text-xs",
+        Size.Sm => "text-base",
+        Size.Md => "text-xl",
+        Size.Lg => "text-3xl",
+        Size.Xl => "text-6xl",
+        _ => throw new NotImplementedException()
+    };
+
+    private string SwitchMask() => $"mask mask-{Mask.ToString().ToLower()}";
+}
