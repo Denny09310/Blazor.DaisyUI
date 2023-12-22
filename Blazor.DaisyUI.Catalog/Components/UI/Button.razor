@@ -20,11 +20,21 @@
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     public string Class => new CssBuilder("btn")
+        .AddClass(SelectVariant, Variant is not Variant.None)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string SelectVariant() => Variant switch
     {
+        Variant.Primary => "btn-primary",
+        Variant.Secondary => "btn-secondary",
+        Variant.Accent => "btn-accent",
+        Variant.Success => "btn-success",
+        Variant.Warning => "btn-warning",
+        Variant.Info => "btn-info",
+        Variant.Error => "btn-error",
+        Variant.Ghost => "btn-ghost",
+        Variant.Link => "btn-link",
         _ => throw new NotImplementedException()
     };
 }

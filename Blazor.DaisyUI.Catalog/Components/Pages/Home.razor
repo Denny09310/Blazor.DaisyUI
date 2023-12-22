@@ -2,6 +2,29 @@
 
 <PageTitle>Home</PageTitle>
 
-<div class="h-full flex flex-col items-center justify-center">
-    <Button>Click Me</Button>
+<div class="p-6 space-y-4">
+    <h1 class="text-4xl font-bold tracking-wider">Button</h1>
+
+    <div class="h-full flex flex-col justify-center gap-6">
+
+        <div class="space-y-2">
+            <h1 class="text-xl font-bold tracking-wider">Basic</h1>
+            <Button>Click Me</Button>
+        </div>
+
+        <div class="space-y-2">
+            <h1 class="text-xl font-bold tracking-wider">Variants</h1>
+            <div class="inline-flex items-center gap-2">
+                <Button Variant="Enums.Variant.Primary">Click Me</Button>
+                <Button Variant="Enums.Variant.Secondary">Click Me</Button>
+                <Button Variant="Enums.Variant.Accent">Click Me</Button>
+                <Button Variant="Enums.Variant.Success">Click Me</Button>
+                <Button Variant="Enums.Variant.Warning">Click Me</Button>
+                <Button Variant="Enums.Variant.Info">Click Me</Button>
+                <Button Variant="Enums.Variant.Error">Click Me</Button>
+                <Button Variant="Enums.Variant.Ghost">Click Me</Button>
+                <Button Variant="Enums.Variant.Link">Click Me</Button>
+            </div>
+        </div>
+    </div>
 </div>
