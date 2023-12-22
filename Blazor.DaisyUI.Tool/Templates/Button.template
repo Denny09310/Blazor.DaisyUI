@@ -1,0 +1,113 @@
+<# output=".razor" #>
+<# depends-on="PolymorphicComponent" #>
+
+@using Blazor.DaisyUI.Enums
+@namespace Blazor.DaisyUI
+
+<PolymorphComponent @attributes="AdditionalAttributes" As="@As" Class="@Class">
+    
+    @if (ShowIcon && Edge is Edge.Start)
+    {
+        @Icon
+    }
+    else if (Loading)
+    {
+        <span class="loading loading-spinner" />
+    }
+
+    @ChildContent
+
+    @if (ShowIcon && Edge is Edge.End)
+    {
+        @Icon
+    }
+
+</PolymorphComponent>
+
+@code
+{
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? Icon { get; set; }
+
+    [Parameter]
+    public string? As { get; set; } = "button";
+
+    [Parameter]
+    public bool Outline { get; set; }
+
+    [Parameter]
+    public bool Wide { get; set; }
+
+    [Parameter]
+    public bool Glass { get; set; }
+
+    [Parameter]
+    public bool Loading { get; set; }
+
+    [Parameter]
+    public bool Block { get; set; }
+
+    [Parameter]
+    public bool NoAnimation { get; set; }
+
+    [Parameter]
+    public Variant Variant { get; set; }
+
+    [Parameter]
+    public Size Size { get; set; }
+
+    [Parameter]
+    public Shape Shape { get; set; }
+
+    [Parameter]
+    public Edge Edge { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    public bool ShowIcon => Icon is not null && !Loading;
+
+    public string Class => new CssBuilder("btn")
+        .AddClass("glass", Glass)
+        .AddClass("no-animation", NoAnimation)
+        .AddClass("btn-outline", Outline)
+        .AddClass("btn-wide", Wide)
+        .AddClass("btn-block", Block)
+        .AddClass(SelectVariant, Variant is not Variant.None)
+        .AddClass(SelectSize, Size is not Size.None)
+        .AddClass(SelectShape, Shape is not Shape.None)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string SelectVariant() => Variant switch
+    {
+        Variant.Primary => "btn-primary",
+        Variant.Secondary => "btn-secondary",
+        Variant.Accent => "btn-accent",
+        Variant.Success => "btn-success",
+        Variant.Warning => "btn-warning",
+        Variant.Info => "btn-info",
+        Variant.Error => "btn-error",
+        Variant.Ghost => "btn-ghost",
+        Variant.Link => "btn-link",
+        _ => throw new NotImplementedException()
+    };
+
+    private string SelectSize() => Size switch
+    {
+        Size.Xs => "btn-xs",
+        Size.Sm => "btn-sm",
+        Size.Lg => "btn-lg",
+        _ => throw new NotImplementedException()
+    };
+
+    private string SelectShape() => Shape switch
+    {
+        Shape.Square => "btn-square",
+        Shape.Circle => "btn-circle",
+        _ => throw new NotImplementedException()
+    };
+}
