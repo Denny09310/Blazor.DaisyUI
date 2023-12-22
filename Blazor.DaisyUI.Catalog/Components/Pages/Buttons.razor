@@ -1,0 +1,41 @@
+﻿@using DaisyUI.Enums
+@page "/button"
+
+<PageTitle>Buttons</PageTitle>
+
+<div class="p-6 space-y-4">
+    <h1 class="text-4xl font-bold tracking-wider">Button</h1>
+
+    <div class="h-full flex flex-col justify-center gap-6">
+
+        <div class="space-y-2">
+            <h1 class="text-xl font-bold tracking-wider">Basic</h1>
+            <Button>Click Me</Button>
+        </div>
+
+        <div class="space-y-2">
+            <h1 class="text-xl font-bold tracking-wider">Variants</h1>
+            <div class="inline-flex items-center gap-2">
+                <Button Variant="Variant.Primary">Primary</Button>
+                <Button Variant="Variant.Secondary">Secondary</Button>
+                <Button Variant="Variant.Accent">Accent</Button>
+                <Button Variant="Variant.Success">Success</Button>
+                <Button Variant="Variant.Warning">Warning</Button>
+                <Button Variant="Variant.Info">Info</Button>
+                <Button Variant="Variant.Error">Error</Button>
+                <Button Variant="Variant.Ghost">Ghost</Button>
+                <Button Variant="Variant.Link">Link</Button>
+            </div>
+        </div>
+
+        <div class="space-y-2">
+            <h1 class="text-xl font-bold tracking-wider">Sizes</h1>
+            <div class="inline-flex items-center gap-2">
+                <Button Size="Size.Lg">Large</Button>
+                <Button>Normal</Button>
+                <Button Size="Size.Sm">Small</Button>
+                <Button Size="Size.Xs">Tiny</Button>
+            </div>
+        </div>
+    </div>
+</div>

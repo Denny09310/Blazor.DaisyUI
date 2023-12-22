@@ -16,11 +16,15 @@
     [Parameter]
     public Variant Variant { get; set; }
 
+    [Parameter]
+    public Size Size { get; set; }
+
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     public string Class => new CssBuilder("btn")
         .AddClass(SelectVariant, Variant is not Variant.None)
+        .AddClass(SelectSize, Size is not Size.None)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -35,6 +39,14 @@
         Variant.Error => "btn-error",
         Variant.Ghost => "btn-ghost",
         Variant.Link => "btn-link",
+        _ => throw new NotImplementedException()
+    };
+
+    private string SelectSize() => Size switch
+    {
+        Size.Xs => "btn-xs",
+        Size.Sm => "btn-sm",
+        Size.Lg => "btn-lg",
         _ => throw new NotImplementedException()
     };
 }
