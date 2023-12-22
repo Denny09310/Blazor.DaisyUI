@@ -45,10 +45,10 @@
         .Build();
 
     public string InnerClass => new CssBuilder()
-        .AddClass("rounded-full", when: Rounded)
-        .AddClass("bg-base-300 text-base-content", when: !string.IsNullOrEmpty(Initials))
-        .AddClass(SwitchSize, when: Size is not Size.None)
-        .AddClass(SwitchMask, when: Mask is not Mask.None)
+        .AddClass("rounded-full", Rounded)
+        .AddClass("bg-base-300 text-base-content", !string.IsNullOrEmpty(Initials))
+        .AddClass(SwitchSize, Size is not Size.None)
+        .AddClass(SwitchMask, !Rounded && Mask is not Mask.None)
         .Build();
 
     public string TextClass => new CssBuilder()
@@ -79,9 +79,9 @@
 
     private string SwitchMask() => Mask switch
     {
-        Mask.Squircle => "mask-squircle",
-        Mask.Hexagon => "mask-hexagon",
-        Mask.Triangle => "mask-triangle",
+        Mask.Squircle => "mask mask-squircle",
+        Mask.Hexagon => "mask mask-hexagon",
+        Mask.Triangle => "mask mask-triangle",
         _ => throw new NotImplementedException()
     };
 }
