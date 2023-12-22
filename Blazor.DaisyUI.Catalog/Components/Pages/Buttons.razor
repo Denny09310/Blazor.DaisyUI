@@ -16,15 +16,24 @@
         <div class="space-y-2">
             <h1 class="text-xl font-bold tracking-wider">Variants</h1>
             <div class="inline-flex items-center gap-2">
-                <Button Variant="Variant.Primary">Primary</Button>
-                <Button Variant="Variant.Secondary">Secondary</Button>
-                <Button Variant="Variant.Accent">Accent</Button>
-                <Button Variant="Variant.Success">Success</Button>
-                <Button Variant="Variant.Warning">Warning</Button>
-                <Button Variant="Variant.Info">Info</Button>
-                <Button Variant="Variant.Error">Error</Button>
-                <Button Variant="Variant.Ghost">Ghost</Button>
-                <Button Variant="Variant.Link">Link</Button>
+                @foreach (var variant in Enum.GetValues<Variant>())
+                {
+                    @if (variant is Variant.None) continue;
+
+                    <Button @key="variant" Variant="@variant">@variant.ToString()</Button>
+                }
+            </div>
+        </div>
+        
+        <div class="space-y-2">
+            <h1 class="text-xl font-bold tracking-wider">Outline</h1>
+            <div class="inline-flex items-center gap-2">
+                @foreach (var variant in Enum.GetValues<Variant>())
+                {
+                    @if (variant is Variant.None) continue;
+
+                    <Button @key="variant" Variant="@variant" Outline>@variant.ToString()</Button>
+                }
             </div>
         </div>
 

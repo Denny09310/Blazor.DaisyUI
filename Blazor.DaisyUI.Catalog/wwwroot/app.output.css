@@ -744,11 +744,6 @@ html {
   position: static;
 }
 
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .flex {
   display: flex;
 }
@@ -781,35 +776,30 @@ html {
   gap: 1.5rem;
 }
 
-.space-y-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
-}
-
 .space-y-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+
 .p-6 {
   padding: 1.5rem;
-}
-
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
 }
 
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .font-bold {
@@ -818,40 +808,6 @@ html {
 
 .tracking-wider {
   letter-spacing: 0.05em;
-}
-
-.container {
-  width: 100%;
-}
-
-@media (min-width: 640px) {
-  .container {
-    max-width: 640px;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-  }
-}
-
-@media (min-width: 1536px) {
-  .container {
-    max-width: 1536px;
-  }
 }
 
 .btn {
@@ -962,6 +918,15 @@ html {
     border-color: transparent;
     background-color: transparent;
     text-decoration-line: underline;
+  }
+
+  .btn-outline:hover {
+    --tw-border-opacity: 1;
+    border-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-border-opacity)));
+    --tw-bg-opacity: 1;
+    background-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-bg-opacity)));
+    --tw-text-opacity: 1;
+    color: var(--fallback-b1,oklch(var(--b1)/var(--tw-text-opacity)));
   }
 
   .btn-outline.btn-primary:hover {
@@ -1271,6 +1236,25 @@ html {
   border-color: transparent;
   background-color: transparent;
   text-decoration-line: underline;
+}
+
+.btn-outline {
+  border-color: currentColor;
+  background-color: transparent;
+  --tw-text-opacity: 1;
+  color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.btn-outline.btn-active {
+  --tw-border-opacity: 1;
+  border-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-border-opacity)));
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-bg-opacity)));
+  --tw-text-opacity: 1;
+  color: var(--fallback-b1,oklch(var(--b1)/var(--tw-text-opacity)));
 }
 
 .btn-outline.btn-primary {

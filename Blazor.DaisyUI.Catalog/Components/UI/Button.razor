@@ -14,6 +14,9 @@
     public string? As { get; set; } = "button";
 
     [Parameter]
+    public bool Outline { get; set; }
+
+    [Parameter]
     public Variant Variant { get; set; }
 
     [Parameter]
@@ -23,6 +26,7 @@
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     public string Class => new CssBuilder("btn")
+        .AddClass("btn-outline", Outline)
         .AddClass(SelectVariant, Variant is not Variant.None)
         .AddClass(SelectSize, Size is not Size.None)
         .AddClassFromAttributes(AdditionalAttributes)
