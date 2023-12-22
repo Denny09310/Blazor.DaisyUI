@@ -59,7 +59,7 @@
     public Size Size { get; set; }
 
     [Parameter]
-    public Shape Shape { get; set; }
+    public Mask Mask { get; set; }
 
     [Parameter]
     public Edge Edge { get; set; }
@@ -77,7 +77,7 @@
         .AddClass("btn-block", Block)
         .AddClass(SelectVariant, Variant is not Variant.None)
         .AddClass(SelectSize, Size is not Size.None)
-        .AddClass(SelectShape, Shape is not Shape.None)
+        .AddClass(SelectShape, Mask is not Mask.None)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -103,10 +103,10 @@
         _ => throw new NotImplementedException()
     };
 
-    private string SelectShape() => Shape switch
+    private string SelectShape() => Mask switch
     {
-        Shape.Square => "btn-square",
-        Shape.Circle => "btn-circle",
+        Mask.Square => "btn-square",
+        Mask.Circle => "btn-circle",
         _ => throw new NotImplementedException()
     };
 }
