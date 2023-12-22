@@ -4,6 +4,6 @@
     {
         string DownloadDirectory { get; }
 
-        Task DownloadTemplateAsync(string name, CancellationToken cancellationToken = default);
+        Task DownloadTemplateAsync(string name, bool force = false, CancellationToken cancellationToken = default);
     }
 }

@@ -20,14 +20,17 @@ await builder.RunCommandLineApplicationAsync(args, app =>
 {
     app.Command("generate", command =>
     {
+        command.Description = "scaffold a component template based on the current working directory";
+
         var name = command.Argument("name", "The name of the component to scaffold").IsRequired();
+        var force = command.Option("--force", "Forces the donwload of the template, overwriting the existing one", CommandOptionType.SingleOrNoValue);
 
         command.OnExecuteAsync(async (cancellationToken) =>
         {
             using var scope = app.CreateScope();
 
             var downloader = scope.ServiceProvider.GetRequiredService<ITemplateDownloader>();
-            await downloader.DownloadTemplateAsync(name.Value!, cancellationToken: cancellationToken);
+            await downloader.DownloadTemplateAsync(name.Value!, force.HasValue(), cancellationToken);
         });
     });
 });
