@@ -7,18 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Enums\**" />
-    <Compile Remove="wwwroot\**" />
-    <Content Remove="Enums\**" />
-    <Content Remove="wwwroot\**" />
-    <EmbeddedResource Remove="Enums\**" />
-    <EmbeddedResource Remove="wwwroot\**" />
-    <None Remove="Enums\**" />
-    <None Remove="wwwroot\**" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 
