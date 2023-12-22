@@ -28,6 +28,9 @@
     [Parameter]
     public Size Size { get; set; }
 
+    [Parameter]
+    public Shape Shape { get; set; }
+
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
@@ -37,6 +40,7 @@
         .AddClass("btn-wide", Wide)
         .AddClass(SelectVariant, Variant is not Variant.None)
         .AddClass(SelectSize, Size is not Size.None)
+        .AddClass(SelectShape, Shape is not Shape.None)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -59,6 +63,13 @@
         Size.Xs => "btn-xs",
         Size.Sm => "btn-sm",
         Size.Lg => "btn-lg",
+        _ => throw new NotImplementedException()
+    };
+
+    private string SelectShape() => Shape switch
+    {
+        Shape.Square => "btn-square",
+        Shape.Circle => "btn-circle",
         _ => throw new NotImplementedException()
     };
 }
