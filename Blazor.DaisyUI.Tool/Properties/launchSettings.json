@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DotnetToolDemo": {
+      "commandName": "Project",
+      "commandLineArgs": "generate button"
+    }
+  }
+}

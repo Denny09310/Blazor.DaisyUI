@@ -1,0 +1,30 @@
+﻿@using Blazor.DaisyUI.Enums
+@namespace Blazor.DaisyUI
+
+<PolymorphComponent @attributes="AdditionalAttributes" As="@As" Class="@Class">
+    @ChildContent
+</PolymorphComponent>
+
+@code
+{
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public string? As { get; set; } = "button";
+
+    [Parameter]
+    public Variant Variant { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    public string Class => new CssBuilder("btn")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string SelectVariant() => Variant switch
+    {
+        _ => throw new NotImplementedException();
+    };
+}
