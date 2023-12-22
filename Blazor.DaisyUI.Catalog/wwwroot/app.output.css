@@ -1866,6 +1866,12 @@ html {
   }
 }
 
+.no-animation {
+  --btn-focus-scale: 1;
+  --animation-btn: 0;
+  --animation-input: 0;
+}
+
 .btn-xs {
   height: 1.5rem;
   min-height: 1.5rem;
@@ -1892,6 +1898,10 @@ html {
 
 .btn-wide {
   width: 16rem;
+}
+
+.btn-block {
+  width: 100%;
 }
 
 .btn-square:where(.btn-xs) {

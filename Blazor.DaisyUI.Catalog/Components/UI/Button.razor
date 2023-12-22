@@ -45,6 +45,12 @@
     public bool Loading { get; set; }
 
     [Parameter]
+    public bool Block { get; set; }
+
+    [Parameter]
+    public bool NoAnimation { get; set; }
+
+    [Parameter]
     public Variant Variant { get; set; }
 
     [Parameter]
@@ -63,8 +69,10 @@
 
     public string Class => new CssBuilder("btn")
         .AddClass("glass", Glass)
+        .AddClass("no-animation", NoAnimation)
         .AddClass("btn-outline", Outline)
         .AddClass("btn-wide", Wide)
+        .AddClass("btn-block", Block)
         .AddClass(SelectVariant, Variant is not Variant.None)
         .AddClass(SelectSize, Size is not Size.None)
         .AddClass(SelectShape, Shape is not Shape.None)
