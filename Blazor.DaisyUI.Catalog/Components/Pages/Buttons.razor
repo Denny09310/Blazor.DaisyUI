@@ -94,5 +94,29 @@
                 <Button class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" Glass>Glass</Button>
             </div>
         </div>
+
+        <div class="space-y-2">
+            <h1 class="text-xl font-bold tracking-wider">Icon</h1>
+
+            <div class="inline-flex items-center gap-2">
+                <Button Icon="@_icon"  aria-label="Icon Only"/>
+                <Button Icon="@_icon">Icon Start</Button>
+                <Button Icon="@_icon" Edge="Edge.End">Icon End</Button>
+            </div>
+        </div>
+
+        <div class="space-y-2">
+            <h1 class="text-xl font-bold tracking-wider">Loading</h1>
+
+            <div class="inline-flex items-center gap-2">
+                <Button Loading>Loading</Button>
+                <Button Loading />
+            </div>
+        </div>
     </div>
 </div>
+
+@code
+{
+    private RenderFragment _icon = @<i class="fa fa-heart" />;
+}
