@@ -17,6 +17,9 @@
     public bool Outline { get; set; }
 
     [Parameter]
+    public bool Wide { get; set; }
+
+    [Parameter]
     public Variant Variant { get; set; }
 
     [Parameter]
@@ -27,6 +30,7 @@
 
     public string Class => new CssBuilder("btn")
         .AddClass("btn-outline", Outline)
+        .AddClass("btn-wide", Wide)
         .AddClass(SelectVariant, Variant is not Variant.None)
         .AddClass(SelectSize, Size is not Size.None)
         .AddClassFromAttributes(AdditionalAttributes)
