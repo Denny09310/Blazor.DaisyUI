@@ -1,4 +1,4 @@
-﻿export const beforeWebStart = () => {
+﻿export function beforeWebStart() {
     injectScript(document.head, "theme-observer.js")
 }
 

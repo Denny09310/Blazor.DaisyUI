@@ -1,7 +1,9 @@
 <# output=".razor" #>
 <# depends-on="PolymorphicComponent" #>
 
+@using BlazorComponentUtilities
 @using Blazor.DaisyUI.Enums
+
 @namespace Blazor.DaisyUI
 
 <PolymorphComponent @attributes="AdditionalAttributes" As="@As" Class="@Class">
