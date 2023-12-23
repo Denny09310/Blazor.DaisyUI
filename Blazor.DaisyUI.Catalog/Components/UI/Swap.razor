@@ -1,0 +1,25 @@
+﻿@using BlazorComponentUtilities
+
+@namespace Blazor.DaisyUI
+@rendermode InteractiveServer
+
+<div class="swap">
+    <input @bind="Checked" type="checkbox" />
+    <div class="swap-on" @onclick="() => OnCheckedChanged(true)">ON</div>
+    <div class="swap-off" @onclick="() => OnCheckedChanged(false)">OFF</div>
+</div>
+
+@code
+{
+    [Parameter]
+    public bool Checked { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> CheckedChanged { get; set; }
+
+    private Task OnCheckedChanged(bool value)
+    {
+        Checked = value;
+        return CheckedChanged.InvokeAsync(value);
+    }
+}
