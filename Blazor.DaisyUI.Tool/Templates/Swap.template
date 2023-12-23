@@ -1,4 +1,6 @@
-﻿@using BlazorComponentUtilities
+<# output=".razor" #>
+
+@using BlazorComponentUtilities
 @using Blazor.DaisyUI.Enums
 
 @namespace Blazor.DaisyUI
