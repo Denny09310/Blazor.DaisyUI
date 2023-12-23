@@ -13,7 +13,9 @@ builder.ConfigureServices((context, services) =>
     services.AddScoped(sp => new HttpClient());
 
     services.AddScoped<IHeaderParser, HeaderParser>();
+    services.AddScoped<IDependencyStore, DependencyStore>();
     services.AddScoped<ITemplateDownloader, TemplateDownloader>();
+    services.AddScoped<ITemplateScaffolder, TemplateScaffolder>();
 });
 
 await builder.RunCommandLineApplicationAsync(args, app =>
@@ -27,10 +29,15 @@ await builder.RunCommandLineApplicationAsync(args, app =>
 
         command.OnExecuteAsync(async (cancellationToken) =>
         {
-            using var scope = app.CreateScope();
+            var proceed = Prompt.GetYesNo("You want to proceed with the installation?", defaultAnswer: false);
 
-            var downloader = scope.ServiceProvider.GetRequiredService<ITemplateDownloader>();
-            await downloader.DownloadTemplateAsync(name.Value!, force.HasValue(), cancellationToken);
+            if (!proceed) return;
+
+            using var scope = app.CreateScope();
+            var scaffolder = scope.ServiceProvider.GetRequiredService<ITemplateScaffolder>();
+
+            await scaffolder.ResolveDependenciesAsync(name.Value!, cancellationToken);
+            await scaffolder.ScaffoldTemplatesAsync(force.HasValue(), cancellationToken);
         });
     });
 });
