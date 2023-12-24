@@ -1,0 +1,33 @@
+﻿ @using BlazorComponentUtilities
+ @using Blazor.DaisyUI.Enums
+
+ @namespace Blazor.DaisyUI
+
+<progress @attributes="AdditionalAttributes" class="@Class" />
+
+@code
+{
+    [Parameter]
+    public Variant Variant { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    public string Class => new CssBuilder("progress")
+        .AddClass(SelectVariant, Variant is not Variant.None)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string SelectVariant() => Variant switch
+    {
+        Variant.Neutral => "progress-neutral",
+        Variant.Primary => "progress-primary",
+        Variant.Secondary => "progress-secondary",
+        Variant.Accent => "progress-accent",
+        Variant.Success => "progress-success",
+        Variant.Warning => "progress-warning",
+        Variant.Info => "progress-info",
+        Variant.Error => "progress-error",
+        _ => throw new NotImplementedException()
+    };
+}
