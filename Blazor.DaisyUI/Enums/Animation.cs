@@ -4,5 +4,11 @@ public enum Animation
 {
     None,
     Rotate,
-    Flip
+    Flip,
+    Spinner,
+    Dots,
+    Ring,
+    Ball,
+    Bars,
+    Infinity
 }

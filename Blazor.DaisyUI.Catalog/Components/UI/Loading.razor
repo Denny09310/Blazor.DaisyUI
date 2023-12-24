@@ -1,0 +1,61 @@
+﻿@using Blazor.DaisyUI.Enums
+@using BlazorComponentUtilities
+
+@namespace Blazor.DaisyUI
+
+<span @attributes="AdditionalAttributes" class="@Class" />
+
+@code
+{
+    [Parameter, EditorRequired]
+    public Animation Animation { get; set; }
+
+    [Parameter]
+    public Variant Variant { get; set; }
+
+    [Parameter]
+    public Size Size { get; set; }
+
+    [Parameter]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    public string Class => new CssBuilder("loading")
+        .AddClass(SelectAnimation, Animation is not Animation.None)
+        .AddClass(SelectVariant, Variant is not Variant.None)
+        .AddClass(SelectSize, Size is not Size.None)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string SelectAnimation() => Animation switch
+    {
+        Animation.Spinner => "loading-spinner",
+        Animation.Dots => "loading-dots",
+        Animation.Ring => "loading-ring",
+        Animation.Ball => "loading-ball",
+        Animation.Bars => "loading-bars",
+        Animation.Infinity => "loading-infinity",
+        _ => throw new NotImplementedException()
+    };
+
+    private string SelectVariant() => Variant switch
+    {
+        Variant.Neutral => "loading-neutral",
+        Variant.Primary => "loading-primary",
+        Variant.Secondary => "loading-secondary",
+        Variant.Accent => "loading-accent",
+        Variant.Info => "loading-info",
+        Variant.Success => "loading-success",
+        Variant.Warning => "loading-warning",
+        Variant.Error => "loading-error",
+        _ => throw new NotImplementedException()
+    };
+
+    private string SelectSize() => Size switch
+    {
+        Size.Xs => "loading-xs",
+        Size.Sm => "loading-sm",
+        Size.Md => "loading-md",
+        Size.Lg => "loading-lg",
+        _ => throw new NotImplementedException()
+    };
+}
