@@ -15,6 +15,13 @@
     }
 
     <span>@ChildContent</span>
+
+    @if (Actions is not null)
+    {
+        <div>
+            @Actions
+        </div>
+    }
 </div>
 
 @code
@@ -24,6 +31,9 @@
 
     [Parameter]
     public RenderFragment? Icon { get; set; }
+
+    [Parameter]
+    public RenderFragment? Actions { get; set; }
 
     [Parameter]
     public bool CurrentColor { get; set; }
