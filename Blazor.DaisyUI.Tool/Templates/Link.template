@@ -1,0 +1,30 @@
+<# output=".razor" #>
+
+@using Blazor.DaisyUI.Enums
+@using BlazorComponentUtilities
+@using Microsoft.AspNetCore.Components.Routing
+
+@inherits NavLink
+
+@* TODO: Learn how to pass down all the inherited properties without specifically do it *@
+
+<NavLink AdditionalAttributes="AdditionalAttributes" ActiveClass="@ActiveClass" Match="@Match" class="@Class">
+    @ChildContent
+</NavLink>
+
+@code
+{
+    [Parameter]
+    public bool Hover { get; set; }
+
+    [Parameter]
+    public Variant Variant { get; set; }
+
+    public string Class => new CssBuilder("link")
+        .AddClass("link-hover", Hover)
+        .AddClass(SelectVariant, Variant is not Variant.None)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string SelectVariant() => $"link-{Variant.ToString().ToLower()}";
+}
