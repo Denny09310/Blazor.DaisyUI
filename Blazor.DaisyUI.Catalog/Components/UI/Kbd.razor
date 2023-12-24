@@ -1,4 +1,5 @@
-﻿@using BlazorComponentUtilities
+﻿@using Blazor.DaisyUI.Enums
+@using BlazorComponentUtilities
 
 @namespace Blazor.DaisyUI
 
@@ -11,9 +12,23 @@
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    [Parameter]
+    public Size Size { get; set; }
+
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     public string Class => new CssBuilder("kbd")
+        .AddClass(SelectSize, Size is not Size.None)
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
+
+    private string SelectSize() => Size switch
+    {
+        Size.Xs => "kbd-xs",
+        Size.Sm => "kbd-sm",
+        Size.Md => "kbd-md",
+        Size.Lg => "kbd-lg",
+        _ => throw new NotImplementedException()
+    };
 }
