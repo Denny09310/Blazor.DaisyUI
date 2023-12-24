@@ -47,8 +47,8 @@
     public string InnerClass => new CssBuilder()
         .AddClass("rounded-full", Rounded)
         .AddClass("bg-base-300 text-base-content", !string.IsNullOrEmpty(Initials))
-        .AddClass(SwitchSize, Size is not Size.None)
-        .AddClass(SwitchMask, !Rounded && Mask is not Mask.None)
+        .AddClass(SelectSize, Size is not Size.None)
+        .AddClass(SelectMask, !Rounded && Mask is not Mask.None)
         .Build();
 
     public string TextClass => new CssBuilder()
@@ -57,7 +57,7 @@
 
     private string SelectStatus() => Online!.Value ? "online" : "offline";
 
-    private string SwitchSize() => Size switch
+    private string SelectSize() => Size switch
     {
         Size.Xs => "w-8",
         Size.Sm => "w-12",
@@ -77,5 +77,11 @@
         _ => throw new NotImplementedException()
     };
 
-    private string SwitchMask() => $"mask mask-{Mask.ToString().ToLower()}";
+    private string SelectMask() => Mask switch
+    {
+        Mask.Squircle => "mask mask-squircle",
+        Mask.Hexagon => "mask mask-hexagon",
+        Mask.Triangle => "mask mask-triangle",
+        _ => throw new NotImplementedException()
+    };
 }

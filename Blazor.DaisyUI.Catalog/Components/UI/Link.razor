@@ -24,5 +24,17 @@
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string SelectVariant() => $"link-{Variant.ToString().ToLower()}";
+
+    private string SelectVariant() => Variant switch
+    {
+        Variant.Neutral => "link-neutral",
+        Variant.Primary => "link-primary",
+        Variant.Secondary => "link-secondary",
+        Variant.Accent => "link-accent",
+        Variant.Success => "link-success",
+        Variant.Warning => "link-warning",
+        Variant.Info => "link-info",
+        Variant.Error => "link-error",
+        _ => throw new NotImplementedException()
+    };
 }

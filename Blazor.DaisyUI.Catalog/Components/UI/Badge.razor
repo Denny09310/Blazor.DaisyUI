@@ -24,12 +24,12 @@
 
     public string Class => new CssBuilder("badge")
         .AddClass("badge-outline", when: Outline)
-        .AddClass(SwitchSize, when: Size is not Size.None)
-        .AddClass(SwitchVariant, when: Variant is not Variant.None)
+        .AddClass(SelectSize, when: Size is not Size.None)
+        .AddClass(SelectVariant, when: Variant is not Variant.None)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string SwitchSize() => Size switch
+    private string SelectSize() => Size switch
     {
         Size.Xs => "badge-xs",
         Size.Sm => "badge-sm",
@@ -38,7 +38,7 @@
         _ => throw new NotImplementedException()
     };
 
-    private string SwitchVariant() => Variant switch
+    private string SelectVariant() => Variant switch
     {
         Variant.Primary => "badge-primary",
         Variant.Secondary => "badge-secondary",
