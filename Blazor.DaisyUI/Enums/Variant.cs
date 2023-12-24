@@ -3,6 +3,7 @@
 public enum Variant
 {
     None,
+    Neutral,
     Primary,
     Secondary,
     Accent,

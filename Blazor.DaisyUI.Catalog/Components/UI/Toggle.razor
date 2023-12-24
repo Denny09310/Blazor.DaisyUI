@@ -1,0 +1,79 @@
+@using BlazorComponentUtilities
+@using Blazor.DaisyUI.Enums
+
+@namespace Blazor.DaisyUI
+
+@* TODO: Check why chain binding not working. Found workaround with @bind:after *@
+
+@if (HasNoLabels)
+{
+    <input @attributes="AdditionalAttributes" @bind="Value" @bind:after="OnValueChanged" class="@Class" type="checkbox" />
+}
+else
+{
+    <div class="w-52 form-control">
+        <label class="label cursor-pointer">
+            <span class="label-text">
+
+                @if (string.IsNullOrEmpty(Label))
+                {
+                    @(Value ? OnLabel : OffLabel)
+                }
+                else
+                {
+                    @Label
+                }
+
+            </span>
+            <input @attributes="AdditionalAttributes" @bind="Value" @bind:after="OnValueChanged" class="@Class" type="checkbox" />
+        </label>
+    </div>
+}
+
+@code
+{
+    [Parameter]
+    public string? Label { get; set; }
+
+    [Parameter]
+    public string? OnLabel { get; set; }
+
+    [Parameter]
+    public string? OffLabel { get; set; }
+
+    [Parameter]
+    public bool Value { get; set; }
+
+    [Parameter]
+    public Size Size { get; set; }
+
+    [Parameter]
+    public Variant Variant { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> ValueChanged { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    public bool HasNoLabels => string.IsNullOrEmpty(Label) && (string.IsNullOrEmpty(OnLabel) || string.IsNullOrEmpty(OffLabel));
+
+    public string Class => new CssBuilder("toggle")
+        .AddClass(SwitchSize, when: Size is not Size.None)
+        .AddClass(SwitchVariant, when: Variant is not Variant.None)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string SwitchSize() => Size switch
+    {
+        Size.Xs => "toggle-xs",
+        Size.Sm => "toggle-sm",
+        Size.Md => "toggle-md",
+        Size.Lg => "toggle-lg",
+        _ => throw new NotImplementedException()
+    };
+
+    private string SwitchVariant() => $"toggle-{Variant.ToString().ToLower()}";
+
+    private Task OnValueChanged() => ValueChanged.InvokeAsync(Value);
+}
