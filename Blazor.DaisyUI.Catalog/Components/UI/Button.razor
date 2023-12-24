@@ -3,7 +3,7 @@
 
 @namespace Blazor.DaisyUI
 
-<PolymorphComponent @attributes="AdditionalAttributes" As="@As" Class="@Class">
+<Polymorph @attributes="AdditionalAttributes" As="@As" Class="@Class">
     
     @if (ShowIcon && Edge is Edge.Start)
     {
@@ -21,7 +21,7 @@
         @Icon
     }
 
-</PolymorphComponent>
+</Polymorph>
 
 @code
 {

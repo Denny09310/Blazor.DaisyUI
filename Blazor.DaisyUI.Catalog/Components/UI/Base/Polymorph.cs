@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Blazor.DaisyUI;
 
-public class PolymorphComponent : ComponentBase
+public class Polymorph : ComponentBase
 {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
