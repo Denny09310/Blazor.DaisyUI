@@ -1,0 +1,11 @@
+﻿@using Blazor.DaisyUI.Enums
+@using BlazorComponentUtilities
+@using Microsoft.AspNetCore.Components.Routing
+
+@inherits NavLink
+
+@* TODO: Learn how to pass down all the inherited properties without specifically do it *@
+
+<NavLink AdditionalAttributes="AdditionalAttributes" ActiveClass="@ActiveClass" Match="@Match">
+    @ChildContent
+</NavLink>
