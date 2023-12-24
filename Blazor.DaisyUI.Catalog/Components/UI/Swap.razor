@@ -1,0 +1,61 @@
+﻿@using BlazorComponentUtilities
+@using Blazor.DaisyUI.Enums
+
+@namespace Blazor.DaisyUI
+
+<div @attributes=AdditionalAttributes class="@Class">
+    <input @bind="Checked" type="checkbox" />
+
+    <div class="swap-on fill-current" @onclick="() => OnCheckedChanged(ShouldFlip)">
+        @OnContent
+    </div>
+    
+    <div class="swap-off fill-current" @onclick="() => OnCheckedChanged(!ShouldFlip)">
+        @OffContent
+    </div>
+</div>
+
+@code
+{
+    [Parameter]
+    public RenderFragment? OnContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? OffContent { get; set; }
+
+    [Parameter]
+    public bool Checked { get; set; }
+
+    [Parameter]
+    public bool Active { get; set; }
+
+    [Parameter]
+    public Animation Animation { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> CheckedChanged { get; set; }
+
+    [Parameter(CaptureUnmatchedValues =true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    public string Class => new CssBuilder("swap")
+        .AddClass("swap-active", Active)
+        .AddClass(SelectAnimation, Animation is not Animation.None)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    public bool ShouldFlip => Animation is not Animation.Flip;
+
+    private Task OnCheckedChanged(bool value)
+    {
+        Checked = value;
+        return CheckedChanged.InvokeAsync(value);
+    }
+
+    private string SelectAnimation() => Animation switch
+    {
+        Animation.Rotate => "swap-rotate",
+        Animation.Flip => "swap-flip",
+        _ => throw new NotImplementedException()
+    };
+}

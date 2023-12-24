@@ -1,8 +1,8 @@
 ﻿internal static class StringExtensions
 {
-    public static string? ToTitleCase(this string? source)
+    public static string ToTitleCase(this string? source)
     {
-        if (source == null) return null;
+        ArgumentException.ThrowIfNullOrWhiteSpace(source);
         return char.ToUpper(source[0]) + source[1..];
     }
 }

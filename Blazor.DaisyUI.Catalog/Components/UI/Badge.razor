@@ -1,0 +1,53 @@
+@using BlazorComponentUtilities
+@using Blazor.DaisyUI.Enums
+
+@namespace Blazor.DaisyUI
+
+<span @attributes="AdditionalAttributes" class="@Class">Badge</span>
+
+@code
+{
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public bool Outline { get; set; }
+
+    [Parameter]
+    public Size Size { get; set; }
+
+    [Parameter]
+    public Variant Variant { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    public string Class => new CssBuilder("badge")
+        .AddClass("badge-outline", when: Outline)
+        .AddClass(SelectSize, when: Size is not Size.None)
+        .AddClass(SelectVariant, when: Variant is not Variant.None)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string SelectSize() => Size switch
+    {
+        Size.Xs => "badge-xs",
+        Size.Sm => "badge-sm",
+        Size.Md => "badge-md",
+        Size.Lg => "badge-lg",
+        _ => throw new NotImplementedException()
+    };
+
+    private string SelectVariant() => Variant switch
+    {
+        Variant.Primary => "badge-primary",
+        Variant.Secondary => "badge-secondary",
+        Variant.Accent => "badge-accent",
+        Variant.Ghost => "badge-ghost",
+        Variant.Info => "badge-info",
+        Variant.Success => "badge-success",
+        Variant.Warning => "badge-warning",
+        Variant.Error => "badge-error",
+        _ => throw new NotImplementedException()
+    };
+}
