@@ -1,3 +1,52 @@
-﻿<div role="alert" class="alert">
-    <span>12 unread messages. Tap to see.</span>
+﻿@using BlazorComponentUtilities
+@using Blazor.DaisyUI.Enums
+@using Blazor.DaisyUI.Helpers
+
+@namespace Blazor.DaisyUI
+
+<div @attributes="AdditionalAttributes" role="alert" class="@Class">
+    @if (Icon is not null)
+    {
+        @Icon
+    }
+    else
+    {
+        @DefaultIcon
+    }
+
+    <span>@ChildContent</span>
 </div>
+
+@code
+{
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? Icon { get; set; }
+
+    [Parameter]
+    public bool CurrentColor { get; set; }
+
+    [Parameter, EditorRequired]
+    public Variant Variant { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    public string Class => new CssBuilder("alert")
+        .AddClass(SelectVariant, CurrentColor)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    public MarkupString DefaultIcon => new(Icons.GetAlertIcon(Variant, CurrentColor));
+
+    public string SelectVariant() => Variant switch
+    {
+        Variant.Info => "alert-info",
+        Variant.Success => "alert-success",
+        Variant.Warning => "alert-warning",
+        Variant.Error => "alert-error",
+        _ => throw new NotImplementedException()
+    };
+}
