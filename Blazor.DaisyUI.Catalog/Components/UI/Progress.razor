@@ -1,0 +1,16 @@
+﻿ @using BlazorComponentUtilities
+ @using Blazor.DaisyUI.Enums
+
+ @namespace Blazor.DaisyUI
+
+<progress @attributes="AdditionalAttributes" class="@Class" />
+
+@code
+{
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    public string Class => new CssBuilder("progress")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+}
