@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <Title>Blazor.DaisyUI</Title>
-    <Version>0.0.4-alpha</Version>
+    <Version>0.0.5-alpha</Version>
     <Authors>Koja Dennis</Authors>
     <RepositoryUrl>https://github.com/Denny09310/Blazor.DaisyUI</RepositoryUrl>
     <PackageTags>csharp blazor web tailwindcss</PackageTags>
@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\DaisyUI.Blazor\DaisyUI.Blazor\README.md">
+    <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

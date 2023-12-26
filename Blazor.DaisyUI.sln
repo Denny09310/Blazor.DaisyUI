@@ -12,6 +12,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{51ACE479-2B6B-460F-9DF9-AF998B3017A7}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		..\..\Downloads\blazor-logo.png = ..\..\Downloads\blazor-logo.png
+		..\..\Downloads\daisy-ui-logo.png = ..\..\Downloads\daisy-ui-logo.png
+		README.md = README.md
+		LICENSE.txt = LICENSE.txt
 	EndProjectSection
 EndProject
 Global
