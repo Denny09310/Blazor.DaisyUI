@@ -1,3 +1,5 @@
+<# output=".razor" #>
+
 @using BlazorComponentUtilities
 @using Blazor.DaisyUI.Services
 @using Blazor.DaisyUI.Enums
