@@ -1,0 +1,116 @@
+@using BlazorComponentUtilities
+@using Blazor.DaisyUI.Enums
+
+@namespace Blazor.DaisyUI
+
+<div @attributes="AdditionalAttributes" class="@Class">
+
+    @if (Image is not null && ImagePosition is Position.Top)
+    {
+        <figure class="@FigureClass">
+            <img src="@Image" />
+        </figure>
+    }
+
+    <div class="@BodyClass">
+        @if (Actions is not null && ActionsPosition is Position.Top)
+        {
+            <div class="card-actions justify-end">
+                @Actions
+            </div>
+        }
+
+        @if (Title is not null)
+        {
+            <h2 class="card-title">@Title</h2>
+        }
+        
+        @(ChildContent ?? Body)
+        
+        @if (Actions is not null && ActionsPosition is Position.Bottom)
+        {
+            <div class="card-actions justify-end">
+                @Actions
+            </div>
+        }
+    </div>
+
+    @if (Image is not null && ImagePosition is Position.Bottom)
+    {
+        <figure class="@FigureClass">
+            <img src="@Image" />
+        </figure>
+    }
+
+</div>
+
+@code
+{
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? Body { get; set; }
+
+    [Parameter]
+    public RenderFragment? Actions { get; set; }
+
+    [Parameter]
+    public RenderFragment? Title { get; set; }
+
+    [Parameter]
+    public string? Image { get; set; }
+
+    [Parameter]
+    public bool Centered { get; set; }
+
+    [Parameter]
+    public bool Overlay { get; set; }
+
+    [Parameter]
+    public bool Glass { get; set; }
+
+    [Parameter]
+    public bool Side { get; set; }
+
+    [Parameter]
+    public Variant Variant { get; set; }
+
+    [Parameter]
+    public Position ImagePosition { get; set; }
+
+    [Parameter]
+    public Position ActionsPosition { get; set; } = Position.Bottom;
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    public string Class => new CssBuilder("card")
+        .AddClass("image-full", when: Overlay)
+        .AddClass("glass", when: Glass)
+        .AddClass("card-side", when: Side)
+        .AddClass(SwitchVariant, when: Variant is not Variant.None)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    public string FigureClass => new CssBuilder()
+        .AddClass("px-10 pt-10", when: Centered)
+        .NullIfEmpty();
+
+    public string BodyClass => new CssBuilder("card-body")
+        .AddClass("items-center text-center", when: Centered)
+        .Build();
+
+    private string SwitchVariant() => Variant switch
+    {
+        Variant.Neutral => "bg-neutral text-neutral-content",
+        Variant.Primary => "bg-primary text-primary-content",
+        Variant.Secondary => "bg-secondary text-secondary-content",
+        Variant.Accent => "bg-accent text-accent-content",
+        Variant.Info => "bg-info text-info-content",
+        Variant.Success => "bg-success text-success-content",
+        Variant.Warning => "bg-warning text-warning-content",
+        Variant.Error => "bg-error text-error-content",
+        _ => throw new NotImplementedException()
+    };
+}
