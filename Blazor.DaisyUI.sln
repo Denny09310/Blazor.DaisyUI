@@ -14,8 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		..\..\Downloads\blazor-logo.png = ..\..\Downloads\blazor-logo.png
 		..\..\Downloads\daisy-ui-logo.png = ..\..\Downloads\daisy-ui-logo.png
-		README.md = README.md
 		LICENSE.txt = LICENSE.txt
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
