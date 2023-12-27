@@ -1,5 +1,5 @@
 <# output=".razor" #>
-<# depends-on="Polymorph" #>
+<# depends-on="PolymorphComponent" #>
 
 @using BlazorComponentUtilities
 @using Blazor.DaisyUI.Enums
@@ -8,7 +8,7 @@
 
 <PolymorphComponent @attributes="AdditionalAttributes" As="@As" Class="@Class">
     
-    @if (ShowIcon && Edge is Edge.Start)
+    @if (ShowIcon && Snap is Snap.Start)
     {
         @Icon
     }
@@ -19,7 +19,7 @@
 
     @ChildContent
 
-    @if (ShowIcon && Edge is Edge.End)
+    @if (ShowIcon && Snap is Snap.End)
     {
         @Icon
     }
@@ -65,7 +65,7 @@
     public Mask Mask { get; set; }
 
     [Parameter]
-    public Edge Edge { get; set; }
+    public Snap Snap { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }

@@ -3,22 +3,22 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Blazor.DaisyUI;
 
-public class Polymorph : ComponentBase
+public class PolymorphComponent : ComponentBase
 {
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     [Parameter]
     public string As { get; set; } = "span";
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
     public string? Class { get; set; }
 
     [Parameter]
     public string? Style { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {

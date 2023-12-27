@@ -1,0 +1,176 @@
+@using BlazorComponentUtilities
+@using Blazor.DaisyUI.Services
+@using Blazor.DaisyUI.Enums
+
+@namespace Blazor.DaisyUI
+
+@typeparam T
+@implements IDisposable
+@inherits JavascriptComponent
+
+@inject ICarouselService CarouselService
+@inject NavigationManager NavigationManager
+
+<div @attributes="AdditionalAttributes" class="@Class">
+
+    @if (ItemTemplate is not null)
+    {
+        for (int i = 0; i < _items.Length; i++)
+        {
+            var index = i;
+            var item = _items[index];
+
+            var key = KeySelector(item);
+
+            <div @key="@key" id="@key" class="@InnerClass">
+
+                @ItemTemplate(item)
+
+                @if (ShowNavigation)
+                {
+                    var prevIndex = index == 0 ? _items.Length - 1 : index - 1;
+                    var nextIndex = index == _items.Length - 1 ? 0 : index + 1;
+
+                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                        <button type="button" class="btn btn-circle" @onclick="() => OnItemClick(prevIndex)">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512">
+                                <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
+                            </svg>
+                        </button>
+                        <button type="button" class="btn btn-circle" @onclick="() => OnItemClick(nextIndex)">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512">
+                                <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+                            </svg>
+                        </button>
+                    </div>
+                }
+            </div>
+        }
+    }
+
+</div>
+
+@if (ShowIndicator)
+{
+    <div class="flex justify-center w-full py-2 gap-2">
+
+        @for (int i = 0; i < _items.Length; i++)
+        {
+            var index = i;
+            var item = _items[index];
+
+            var key = KeySelector(item);
+
+            <Button @key="key" @onclick="() => OnItemClick(index)" Size="Size.Xs">@index</Button>
+        }
+
+    </div>
+}
+
+@code
+{
+    private readonly PeriodicTimer _loopTimer = new(TimeSpan.FromSeconds(5));
+
+    private Task? _currentTask;
+
+    private int _currentIndex = 0;
+    private T[] _items = [];
+
+    [Parameter]
+    public RenderFragment<T>? ItemTemplate { get; set; }
+
+    [Parameter]
+    public string? ItemClass { get; set; }
+
+    [Parameter]
+    public bool ShowIndicator { get; set; } = true;
+
+    [Parameter]
+    public bool ShowNavigation { get; set; }
+
+    [Parameter]
+    public bool Loop { get; set; } = false;
+
+    [Parameter]
+    public Snap Snap { get; set; }
+
+    [Parameter]
+    public Orientation Orientation { get; set; }
+
+    [Parameter]
+    public IEnumerable<T> Items { get; set; } = [];
+
+    [Parameter, EditorRequired]
+    public Func<T, string> KeySelector { get; set; } = null!;
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    public string Class => new CssBuilder("carousel")
+        .AddClass(SelectOrientation, Orientation is not Orientation.Horizontal)
+        .AddClass(SelectSnap, Snap is not Snap.Start)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    public string InnerClass => new CssBuilder("carousel-item")
+        .AddClass(ItemClass)
+        .AddClass("relative w-full", ShowNavigation)
+        .Build();
+
+    public void Dispose() => _loopTimer.Dispose();
+
+    protected override void OnParametersSet()
+    {
+        _items = Items.ToArray();
+
+        if (_currentTask is not null)
+        {
+            _currentTask.Dispose();
+        }
+
+        if (Loop)
+        {
+            _currentTask = Task.Factory.StartNew(LoopCarouselAsync, TaskCreationOptions.LongRunning);
+        }
+    }
+
+    private async Task LoopCarouselAsync()
+    {
+        SpinWait.SpinUntil(() => IsJsRuntimeAvailable);
+
+        await ScrollIntoView();
+
+        while (await _loopTimer.WaitForNextTickAsync())
+        {
+            if (_currentIndex > _items.Length - 1)
+            {
+                _currentIndex = 0;
+            }
+
+            await ScrollIntoView();
+
+            _currentIndex++;
+        }
+    }
+
+    private ValueTask ScrollIntoView() => CarouselService.ScrollSlideIntoViewAsync(KeySelector(_items[_currentIndex]));
+
+    private async Task OnItemClick(int index)
+    {
+        _currentIndex = index;
+        await ScrollIntoView();
+    }
+
+    private string SelectSnap() => Snap switch
+    {
+        Snap.Center => "carousel-center",
+        Snap.End => "carousel-end",
+        _ => throw new NotImplementedException()
+    };
+
+    private string SelectOrientation() => Orientation switch
+    {
+        Orientation.Vertical => "carousel-vertical",
+        _ => throw new NotImplementedException()
+    };
+}
