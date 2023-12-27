@@ -3,9 +3,9 @@
 
 @namespace Blazor.DaisyUI
 
-<Polymorph @attributes="AdditionalAttributes" As="@As" Class="@Class">
+<PolymorphComponent @attributes="AdditionalAttributes" As="@As" Class="@Class">
     
-    @if (ShowIcon && Edge is Edge.Start)
+    @if (ShowIcon && Snap is Snap.Start)
     {
         @Icon
     }
@@ -16,12 +16,12 @@
 
     @ChildContent
 
-    @if (ShowIcon && Edge is Edge.End)
+    @if (ShowIcon && Snap is Snap.End)
     {
         @Icon
     }
 
-</Polymorph>
+</PolymorphComponent>
 
 @code
 {
@@ -62,7 +62,7 @@
     public Mask Mask { get; set; }
 
     [Parameter]
-    public Edge Edge { get; set; }
+    public Snap Snap { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }

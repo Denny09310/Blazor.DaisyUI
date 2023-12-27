@@ -1,0 +1,57 @@
+<# output=".razor" #>
+
+@using BlazorComponentUtilities
+@using Blazor.DaisyUI.Enums
+
+@namespace Blazor.DaisyUI
+
+<div @attributes="AdditionalAttributes" class="@Class">
+    <div tabindex="0" role="button">
+        @Trigger
+    </div>
+
+    <div tabindex="0" class="dropdown-content">
+        @Content
+    </div>
+</div>
+
+@code
+{
+    [Parameter, EditorRequired]
+    public RenderFragment Trigger { get; set; } = default!;
+
+    [Parameter]
+    public RenderFragment? Content { get; set; }
+
+    [Parameter]
+    public Position Position { get; set; } = Position.Bottom;
+
+    [Parameter]
+    public bool End { get; set; }
+
+    [Parameter]
+    public bool Hover { get; set; }
+
+    [Parameter]
+    public bool Open { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    public string Class => new CssBuilder("dropdown")
+        .AddClass("dropdown-end", End)
+        .AddClass("dropdown-hover", Hover)
+        .AddClass("dropdown-open", Open)
+        .AddClass(SwitchPosition, true)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string SwitchPosition() => Position switch
+    {
+        Position.Top => "dropdown-top",
+        Position.Bottom => "dropdown-bottom",
+        Position.Left => "dropdown-left",
+        Position.Right => "dropdown-right",
+        _ => throw new NotImplementedException()
+    };
+}

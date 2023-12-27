@@ -22,7 +22,7 @@ var app = new CommandApp(registrar);
 app.Configure(config =>
 {
     config.SetApplicationName("daisyui")
-          .SetApplicationVersion("0.0.5-beta");
+          .SetApplicationVersion("0.0.6-beta");
 
     config.AddCommand<GenerateCommand>("generate")
           .WithDescription("Scaffold a component template along with needed dependencies")

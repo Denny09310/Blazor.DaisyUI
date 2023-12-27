@@ -42,6 +42,8 @@ internal sealed class GenerateCommand(IDependencyStore store, IDependencyResolve
             }
         });
 
+        AnsiConsole.MarkupLine("[green]Installation completed[/]");
+
         return 0;
     }
 

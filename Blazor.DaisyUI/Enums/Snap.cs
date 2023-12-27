@@ -1,7 +1,8 @@
 ﻿namespace Blazor.DaisyUI.Enums;
 
-public enum Edge
+public enum Snap
 {
     Start,
+    Center,
     End,
 }

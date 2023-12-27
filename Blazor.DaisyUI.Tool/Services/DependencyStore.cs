@@ -14,7 +14,7 @@ internal class DependencyStore(IHeaderParser parser) : IDependencyStore
 
         var headersIndex = parser.GetIndexOfHeaders(content);
 
-        content = content[headersIndex..];
+        content = content[headersIndex..].Trim();
         var template = new Template { Content = content, Headers = headers };
 
         if (!Dependencies.TryAdd(name, template))

@@ -1,0 +1,37 @@
+@using BlazorComponentUtilities
+
+@namespace Blazor.DaisyUI
+
+<CascadingValue Name="@Name" Value="@id">
+    <div @attributes=AdditionalAttributes class="@Class">
+        <input id="@id" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content">
+            @Content
+        </div>
+        <div class="drawer-side">
+            <label for="@id" aria-label="close sidebar" class="drawer-overlay"></label>
+            @Side
+        </div>
+    </div>
+</CascadingValue>
+
+@code
+{
+    private readonly string id = Guid.NewGuid().ToString();
+
+    [Parameter, EditorRequired]
+    public string Name { get; set; } = default!;
+
+    [Parameter]
+    public RenderFragment? Content { get; set; }
+
+    [Parameter]
+    public RenderFragment? Side { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    public string Class => new CssBuilder("drawer")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+}
