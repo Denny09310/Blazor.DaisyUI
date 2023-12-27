@@ -1,0 +1,1 @@
+﻿export const scrollSlideIntoView = (slideId) => document.getElementById(slideId)?.scrollIntoView();

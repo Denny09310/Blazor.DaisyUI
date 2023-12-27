@@ -1,0 +1,147 @@
+@using BlazorComponentUtilities
+@using Blazor.DaisyUI.Services
+@using Blazor.DaisyUI.Enums
+
+@namespace Blazor.DaisyUI
+
+@typeparam T
+@implements IDisposable
+@inherits JavascriptComponent
+
+@inject ICarouselService CarouselService
+@inject NavigationManager NavigationManager
+
+<div @attributes="AdditionalAttributes" class="@Class">
+
+    @if (ItemTemplate is not null)
+    {
+        @foreach (var item in _items)
+        {
+            var key = KeySelector(item);
+
+            <div @key="@key" id="@key" class="crousel-item @ItemClass">
+
+                @ItemTemplate(item)
+
+            </div>
+        }
+    }
+
+</div>
+
+@if (ShowIndicator)
+{
+    <div class="flex justify-center w-full py-2 gap-2">
+
+        @for (int i = 0; i < _items.Length; i++)
+        {
+            var index = i;
+            var item = _items[index];
+
+            var key = KeySelector(item);
+
+            <Button @key="key" @onclick="() => OnItemClick(index, key)" Size="Size.Xs">@index</Button>
+        }
+
+    </div>
+}
+
+@code
+{
+    private readonly PeriodicTimer _loopTimer = new(TimeSpan.FromSeconds(5));
+
+    private Task? _currentTask;
+
+    private int _currentIndex = 0;
+    private T[] _items = [];
+
+    [Parameter]
+    public RenderFragment<T>? ItemTemplate { get; set; }
+
+    [Parameter]
+    public string? ItemClass { get; set; }
+
+    [Parameter]
+    public bool ShowIndicator { get; set; } = true;
+
+    [Parameter]
+    public bool Loop { get; set; } = false;
+
+    [Parameter]
+    public Snap Snap { get; set; }
+
+    [Parameter]
+    public Orientation Orientation { get; set; }
+
+    [Parameter]
+    public IEnumerable<T> Items { get; set; } = [];
+
+    [Parameter, EditorRequired]
+    public Func<T, string> KeySelector { get; set; } = null!;
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    public string Class => new CssBuilder("carousel")
+        .AddClass(SelectOrientation, Orientation is not Orientation.Horizontal)
+        .AddClass(SelectSnap, Snap is not Snap.Start)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    public void Dispose() => _loopTimer.Dispose();
+
+    protected override void OnParametersSet()
+    {
+        _items = Items.ToArray();
+
+        if (_currentTask is not null)
+        {
+            _currentTask.Dispose();
+        }
+
+        if (Loop)
+        {
+            _currentTask = Task.Factory.StartNew(LoopCarouselAsync, TaskCreationOptions.LongRunning);
+        }
+    }
+
+    private async Task LoopCarouselAsync()
+    {
+        SpinWait.SpinUntil(() => IsJsRuntimeAvailable);
+
+        await ScrollIntoView();
+
+        while (await _loopTimer.WaitForNextTickAsync())
+        {
+            if (_currentIndex > _items.Length - 1)
+            {
+                _currentIndex = 0;
+            }
+
+            await ScrollIntoView();
+
+            _currentIndex++;
+        }
+    }
+
+    private ValueTask ScrollIntoView() => CarouselService.ScrollSlideIntoViewAsync(KeySelector(_items[_currentIndex]));
+
+    private async Task OnItemClick(int index, string key)
+    {
+        _currentIndex = index;
+        await ScrollIntoView();
+    }
+
+    private string SelectSnap() => Snap switch
+    {
+        Snap.Center => "carousel-center",
+        Snap.End => "carousel-end",
+        _ => throw new NotImplementedException()
+    };
+
+    private string SelectOrientation() => Orientation switch
+    {
+        Orientation.Vertical => "carousel-vertical",
+        _ => throw new NotImplementedException()
+    };
+}
