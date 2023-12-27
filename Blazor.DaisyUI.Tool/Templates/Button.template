@@ -1,5 +1,5 @@
 <# output=".razor" #>
-<# depends-on="Polymorph" #>
+<# depends-on="PolymorphComponent" #>
 
 @using BlazorComponentUtilities
 @using Blazor.DaisyUI.Enums
