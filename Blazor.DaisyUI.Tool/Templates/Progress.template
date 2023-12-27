@@ -1,9 +1,9 @@
- <# output=".razor" #>
+<# output=".razor" #>
  
- @using BlazorComponentUtilities
- @using Blazor.DaisyUI.Enums
+@using BlazorComponentUtilities
+@using Blazor.DaisyUI.Enums
 
- @namespace Blazor.DaisyUI
+@namespace Blazor.DaisyUI
 
 <progress @attributes="AdditionalAttributes" class="@Class" />
 
