@@ -1,4 +1,5 @@
 ﻿using Blazor.DaisyUI.Tool.Contracts.Services;
+using Blazor.DaisyUI.Tool.Models;
 using Spectre.Console;
 
 namespace Blazor.DaisyUI.Tool.Services;
@@ -11,10 +12,7 @@ internal class DependencyResolver(IDependencyStore store, ITemplateDownloader do
 
         name = name.ToTitleCase();
 
-        var repository = await downloader.GetFromRepositoryAsync(name, cancellationToken);
-        var content = await downloader.GetTemplateAsync(repository, cancellationToken);
-
-        var headers = parser.ParseContent(content);
+        var (content, headers) = await FetchRepositoryContentAndHeaders(name, cancellationToken);
 
         var dependencies = headers
             .Where(header => header.Key == "depends-on")
@@ -32,4 +30,15 @@ internal class DependencyResolver(IDependencyStore store, ITemplateDownloader do
 
         store.AddDependency(name, content, headers);
     }
+
+    private async Task<Dependency> FetchRepositoryContentAndHeaders(string name, CancellationToken cancellationToken)
+    {
+        var repository = await downloader.GetFromRepositoryAsync(name, cancellationToken);
+        var content = await downloader.GetTemplateAsync(repository.DownloadUrl, cancellationToken);
+        var headers = parser.ParseContent(content);
+
+        return new(content, headers);
+    }
+
+    private record Dependency(string Content, IEnumerable<Header> Headers);
 }

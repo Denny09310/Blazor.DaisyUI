@@ -27,6 +27,9 @@ app.Configure(config =>
     config.AddCommand<GenerateCommand>("generate")
           .WithDescription("Scaffold a component template along with needed dependencies")
           .WithExample(["generate", "button"]);
+
+    config.AddCommand<ListCommand>("list")
+          .WithDescription("list all the components templates and shows some infos");
 });
 
 await app.RunAsync(args);

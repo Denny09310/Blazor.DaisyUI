@@ -1,4 +1,5 @@
 <# output=".razor" #>
+<# description="Dropdown can open a menu or any other element when the button is clicked." #>
 
 @using BlazorComponentUtilities
 @using Blazor.DaisyUI.Enums

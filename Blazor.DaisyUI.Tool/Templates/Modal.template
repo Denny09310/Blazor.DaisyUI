@@ -1,4 +1,5 @@
 ﻿<# output=".razor" #>
+<# description="Modal is used to show a dialog or a box when you click a button." #>
 <# depends-on="Button" #>
 <# depends-on="JavascriptComponent" #>
 

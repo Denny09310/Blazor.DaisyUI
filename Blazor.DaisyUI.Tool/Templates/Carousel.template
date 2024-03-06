@@ -1,4 +1,5 @@
 <# output=".razor" #>
+<# description="Carousel show images or content in a scrollable area." #>
 <# depends-on="JavascriptComponent" #>
 
 @using BlazorComponentUtilities
