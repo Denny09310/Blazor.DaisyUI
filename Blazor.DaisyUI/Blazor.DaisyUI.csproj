@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <Title>Blazor.DaisyUI</Title>
-    <Version>0.0.6-beta</Version>
+    <Version>0.0.7-beta</Version>
     <Authors>Koja Dennis</Authors>
     <RepositoryUrl>https://github.com/Denny09310/Blazor.DaisyUI</RepositoryUrl>
     <PackageTags>csharp blazor web tailwindcss</PackageTags>
@@ -23,7 +23,7 @@
   <ItemGroup>
     <PackageReference Include="BlazorComponentUtilities" Version="1.8.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
-    <PackageReference Include="Microsoft.JSInterop" Version="8.0.0" />
+    <PackageReference Include="Microsoft.JSInterop" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>

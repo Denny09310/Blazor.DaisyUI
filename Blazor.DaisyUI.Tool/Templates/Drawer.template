@@ -1,4 +1,5 @@
 <# output=".razor" #>
+<# description="Drawer is a grid layout that can show/hide a sidebar on the left or right side of the page." #>
 
 @using BlazorComponentUtilities
 

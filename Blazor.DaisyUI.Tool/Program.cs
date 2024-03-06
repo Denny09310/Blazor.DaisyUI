@@ -22,11 +22,14 @@ var app = new CommandApp(registrar);
 app.Configure(config =>
 {
     config.SetApplicationName("daisyui")
-          .SetApplicationVersion("0.0.6-beta");
+          .SetApplicationVersion("0.0.7-beta");
 
     config.AddCommand<GenerateCommand>("generate")
           .WithDescription("Scaffold a component template along with needed dependencies")
           .WithExample(["generate", "button"]);
+
+    config.AddCommand<ListCommand>("list")
+          .WithDescription("list all the components templates and shows some infos");
 });
 
 await app.RunAsync(args);

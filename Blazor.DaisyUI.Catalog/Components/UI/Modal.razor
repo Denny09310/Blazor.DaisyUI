@@ -1,0 +1,112 @@
+﻿@using Blazor.DaisyUI.Enums
+@using BlazorComponentUtilities
+
+@inherits JavascriptComponent
+
+<dialog @ref="dialog" @attributes="AdditionalAttributes" class="@Class" open="@Open">
+    <div class="modal-box">
+
+        @if (!BackdropClick && CloseButton == null)
+        {
+            <form method="dialog" @onsubmit="Close">
+                <Button Variant="Variant.Ghost" Size="Size.Sm" Mask="Mask.Circle" class="absolute right-2 top-2">✕</Button>
+            </form>
+        }
+
+        @(ChildContent ?? Body)
+
+        <div class="modal-action">
+            @Actions
+
+            @if (!BackdropClick && CloseButton != null)
+            {
+                <form method="dialog" @onsubmit="Close">
+                    @CloseButton
+                </form> 
+            }
+        </div>
+    </div>
+
+    @if (BackdropClick)
+    {
+        <form method="dialog" class="modal-backdrop" @onsubmit="Close">
+            <button>close</button>
+        </form>
+    }
+</dialog>
+
+@code
+{
+    private IJSObjectReference module = null!;
+
+    private ElementReference dialog;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? Body { get; set; }
+
+    [Parameter]
+    public RenderFragment? Actions { get; set; }
+
+    [Parameter]
+    public RenderFragment? CloseButton { get; set; }
+
+    [Parameter]
+    public bool Open { get; set; }
+
+    [Parameter]
+    public bool BackdropClick { get; set; }
+
+    [Parameter]
+    public bool Responsive { get; set; }
+
+    [Parameter]
+    public Position Position { get; set; } = Position.Middle;
+
+    [Parameter]
+    public EventCallback<bool> OpenChanged { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
+
+    protected string Class => new CssBuilder("modal")
+        .AddClass("modal-open", Open)
+        .AddClass("modal-bottom sm:modal-middle", Responsive)
+        .AddClass(SelectPosition(), !Responsive)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    public async Task ShowModal()
+    {
+        await module.InvokeVoidAsync("showModal", dialog);
+
+        Open = true;
+        await OpenChanged.InvokeAsync(Open);
+    }
+
+    public async Task Close()
+    {
+        await module.InvokeVoidAsync("close", dialog);
+
+        Open = false;
+        await OpenChanged.InvokeAsync(Open);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && IsJsRuntimeAvailable)
+        {
+            module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Blazor.DaisyUI/dialog.js");
+        }
+    }
+
+    private string SelectPosition() => Position switch
+    {
+        Position.Top => "modal-top",
+        Position.Middle => "modal-middle",
+        Position.Bottom => "modal-bottom",
+        _ => throw new NotImplementedException()
+    };
+}

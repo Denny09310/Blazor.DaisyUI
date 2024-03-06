@@ -1,4 +1,5 @@
 <# output=".razor" #>
+<# description="Toggle is a checkbox that is styled to look like a switch button." #>
 
 @using BlazorComponentUtilities
 @using Blazor.DaisyUI.Enums

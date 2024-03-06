@@ -1,4 +1,5 @@
 <# output=".razor" #>
+<# description="Badges are used to inform the user of the status of specific data." #>
 
 @using BlazorComponentUtilities
 @using Blazor.DaisyUI.Enums
