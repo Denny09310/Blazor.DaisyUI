@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace Blazor.DaisyUI.Tool.Commands;
 
-internal sealed class ListCommand(IGitHubClient github, IDependencyResolver resolver) : AsyncCommand<ListCommand.Settings>
+internal sealed class ListCommand(IGitHubClient github, ITemplateDownloader downloader, IHeaderParser parser) : AsyncCommand<ListCommand.Settings>
 {
     public override async Task<int> ExecuteAsync(CommandContext context, Settings settings)
     {
@@ -23,10 +23,18 @@ internal sealed class ListCommand(IGitHubClient github, IDependencyResolver reso
 
             foreach (var template in templates)
             {
-                var name = Path.GetFileNameWithoutExtension(template.Name);
-                var hasDependencies = await resolver.HasDependenciesAsync(template.DownloadUrl);
+                var content = await downloader.GetTemplateAsync(template.DownloadUrl);
+                var headers = parser.ParseContent(content);
 
-                table.AddRow(name, string.Empty, hasDependencies.ToString(), string.Empty);
+                var dependencies = headers
+                    .Where(header => header.Key == "depends-on")
+                    .Select(header => header.Value);
+
+                var name = Path.GetFileNameWithoutExtension(template.Name);
+                var description = headers.FirstOrDefault(header => header.Key == "description")?.Value ?? string.Empty;
+                var hasDependencies = dependencies.Any().ToString();
+
+                table.AddRow(name, description, hasDependencies, string.Empty);
                 context.Refresh();
             }
 
