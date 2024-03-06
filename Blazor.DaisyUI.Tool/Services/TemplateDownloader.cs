@@ -5,8 +5,12 @@ namespace Blazor.DaisyUI.Tool.Services;
 
 internal class TemplateDownloader(IGitHubClient github, HttpClient client) : ITemplateDownloader
 {
+    private const string COMPONENT_SUFFIX = "Component";
+
     public async Task<RepositoryContent> GetFromRepositoryAsync(string name, CancellationToken cancellationToken = default)
     {
+        name = name.Replace(COMPONENT_SUFFIX, string.Empty);
+
         var repository = await github.Repository.Content
             .GetAllContents("Denny09310", "Blazor.DaisyUI", "Blazor.DaisyUI.Tool/Templates");
 

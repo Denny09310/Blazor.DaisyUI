@@ -1,4 +1,5 @@
 <# output=".razor" #>
+<# depends-on="JavascriptComponent" #>
 
 @using BlazorComponentUtilities
 @using Blazor.DaisyUI.Services
