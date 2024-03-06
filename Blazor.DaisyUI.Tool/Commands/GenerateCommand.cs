@@ -55,12 +55,22 @@ internal sealed class GenerateCommand(IDependencyStore store, IDependencyResolve
 
     public sealed class Settings : CommandSettings
     {
-        [Description("Tells the program if the overwrite confirmation is needed")]
         [CommandOption("--force")]
+        [Description("Tells the program if the overwrite confirmation is needed")]
         public bool Force { get; init; }
 
-        [Description("Name of the template to scaffold inside the project")]
         [CommandArgument(0, "[name]")]
+        [Description("Name of the template to scaffold inside the project")]
         public string Name { get; init; } = null!;
+
+        public override ValidationResult Validate()
+        {
+            if (string.IsNullOrWhiteSpace(Name))
+            {
+                return ValidationResult.Error("The name of the component to scaffold must be specified");
+            }
+
+            return ValidationResult.Success();
+        }
     }
 }

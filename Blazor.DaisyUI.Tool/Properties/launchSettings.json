@@ -2,7 +2,7 @@
   "profiles": {
     "Blazor.DaisyUI.Tool": {
       "commandName": "Project",
-      "commandLineArgs": "generate modal"
+      "commandLineArgs": "list --prerelease"
     }
   }
 }

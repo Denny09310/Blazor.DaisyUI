@@ -1,6 +1,6 @@
 ﻿using Blazor.DaisyUI.Tool.Contracts.Services;
-using Microsoft.Extensions.Hosting;
 using Octokit;
+using System.Globalization;
 
 namespace Blazor.DaisyUI.Tool.Services;
 
@@ -25,8 +25,8 @@ internal class TemplateDownloader(IGitHubClient github, HttpClient client) : ITe
             ?? throw new Exception($"The template {name} does not exists. Aborting");
     }
 
-    public Task<string> GetTemplateAsync(RepositoryContent repository, CancellationToken cancellationToken = default)
+    public Task<string> GetTemplateAsync(string downloadUrl, CancellationToken cancellationToken = default)
     {
-        return client.GetStringAsync(repository.DownloadUrl, cancellationToken);
+        return client.GetStringAsync(downloadUrl, cancellationToken);
     }
 }
