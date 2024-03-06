@@ -15,7 +15,7 @@ internal sealed class ListCommand(IGitHubClient github, ITemplateDownloader down
         var templates = await AnsiConsole.Status().StartAsync($"Fetching templates from {branch} branch", (context) =>
             github.Repository.Content.GetAllContentsByRef("Denny09310", "Blazor.DaisyUI", "Blazor.DaisyUI.Tool/Templates", branch));
 
-        var table = new Table { Border = TableBorder.SimpleHeavy };
+        var table = new Table { Border = TableBorder.Rounded };
         await AnsiConsole.Live(table).StartAsync(async (context) =>
         {
             table.AddColumns("Name", "Description", "Dependencies", "Tags");
