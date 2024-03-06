@@ -47,7 +47,7 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    public string Class => new CssBuilder("alert")
+    protected string Class => new CssBuilder("alert")
         .AddClass(SelectVariant, CurrentColor)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();

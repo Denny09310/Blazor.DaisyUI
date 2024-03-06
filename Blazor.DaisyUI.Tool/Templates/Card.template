@@ -88,7 +88,7 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    public string Class => new CssBuilder("card")
+    protected string Class => new CssBuilder("card")
         .AddClass("image-full", when: Overlay)
         .AddClass("glass", when: Glass)
         .AddClass("card-side", when: Side)

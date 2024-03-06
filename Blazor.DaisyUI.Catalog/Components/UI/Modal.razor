@@ -3,6 +3,8 @@
 
 @inherits JavascriptComponent
 
+@namespace Blazor.DaisyUI
+
 <dialog @ref="dialog" @attributes="AdditionalAttributes" class="@Class" open="@Open">
     <div class="modal-box">
 
@@ -74,7 +76,7 @@
     protected string Class => new CssBuilder("modal")
         .AddClass("modal-open", Open)
         .AddClass("modal-bottom sm:modal-middle", Responsive)
-        .AddClass(SelectPosition(), !Responsive)
+        .AddClass(SelectPosition, !Responsive)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

@@ -16,10 +16,10 @@
     [Parameter]
     public Size Size { get; set; }
 
-    [Parameter]
+    [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    public string Class => new CssBuilder("loading")
+    protected string Class => new CssBuilder("loading")
         .AddClass(SelectAnimation, Animation is not Animation.None)
         .AddClass(SelectVariant, Variant is not Variant.None)
         .AddClass(SelectSize, Size is not Size.None)

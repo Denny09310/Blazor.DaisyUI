@@ -80,5 +80,11 @@
         _ => throw new NotImplementedException()
     };
 
-    private string SwitchMask() => $"mask mask-{Mask.ToString().ToLower()}";
+    private string SelectMask() => Mask switch
+    {
+        Mask.Squircle => "mask mask-squircle",
+        Mask.Hexagon => "mask mask-hexagon",
+        Mask.Triangle => "mask mask-triangle",
+        _ => throw new NotImplementedException()
+    };
 }
