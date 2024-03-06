@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "DotnetToolDemo": {
+    "Blazor.DaisyUI.Tool": {
       "commandName": "Project",
-      "commandLineArgs": "generate button"
+      "commandLineArgs": "generate modal"
     }
   }
 }

@@ -21,24 +21,30 @@ internal sealed class GenerateCommand(IDependencyStore store, IDependencyResolve
 
             foreach (var (key, value) in store.Dependencies)
             {
-                var subPath = value.Headers.FirstOrDefault(header => header.Key == "sub-path");
-                var downloadDirectory = subPath != null ? Path.Combine(ScaffoldDirectory, subPath.Value) : ScaffoldDirectory;
-
-                Directory.CreateDirectory(downloadDirectory);
-
-                var extension = value.Headers.FirstOrDefault(header => header.Key == "output") ?? new("output", ".cs");
-                var dowloadPath = Path.Combine(downloadDirectory, $"{key}{extension.Value}");
-
-                if (!settings.Force && File.Exists(dowloadPath))
+                try
                 {
-                    var proceed = AnsiConsole.Confirm("This component has already been installed. Do you want to overwrite it?", defaultValue: false);
+                    var subPath = value.Headers.FirstOrDefault(header => header.Key == "sub-path");
+                    var downloadDirectory = subPath != null ? Path.Combine(ScaffoldDirectory, subPath.Value) : ScaffoldDirectory;
 
-                    if (!proceed) continue;
+                    Directory.CreateDirectory(downloadDirectory);
+
+                    var extension = value.Headers.FirstOrDefault(header => header.Key == "output") ?? new("output", ".cs");
+                    var dowloadPath = Path.Combine(downloadDirectory, $"{key}{extension.Value}");
+
+                    if (!settings.Force && File.Exists(dowloadPath))
+                    {
+                        // TODO: Can't run prompt and progress bar, for now if it exists don't touch it
+                        // var proceed = AnsiConsole.Confirm("This component has already been installed. Do you want to overwrite it?", defaultValue: false);
+
+                        if (true) continue;
+                    }
+
+                    await File.WriteAllTextAsync(dowloadPath, value.Content);
                 }
-
-                await File.WriteAllTextAsync(dowloadPath, value.Content);
-
-                task.Increment(tick);
+                finally
+                {
+                    task.Increment(tick);
+                }
             }
         });
 
