@@ -4,6 +4,7 @@ public enum Position
 {
     Top,
     Bottom,
+    Middle,
     Left,
     Right,
 }
