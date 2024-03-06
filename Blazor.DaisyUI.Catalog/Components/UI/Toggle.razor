@@ -58,7 +58,7 @@ else
 
     public bool HasNoLabels => string.IsNullOrEmpty(Label) && (string.IsNullOrEmpty(OnLabel) || string.IsNullOrEmpty(OffLabel));
 
-    public string Class => new CssBuilder("toggle")
+    protected string Class => new CssBuilder("toggle")
         .AddClass(SelectSize, when: Size is not Size.None)
         .AddClass(SelectVariant, when: Variant is not Variant.None)
         .AddClassFromAttributes(AdditionalAttributes)
