@@ -1,4 +1,5 @@
 <# output=".razor" #>
+<# description="Loading shows an animation to indicate that something is loading." #>
 
 @using Blazor.DaisyUI.Enums
 @using BlazorComponentUtilities

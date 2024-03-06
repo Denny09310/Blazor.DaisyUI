@@ -1,4 +1,5 @@
 <# output=".razor" #>
+<# description="Progress bar can be used to show the progress of a task or to show the passing of time." #>
  
 @using BlazorComponentUtilities
 @using Blazor.DaisyUI.Enums

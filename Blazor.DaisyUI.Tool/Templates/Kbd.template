@@ -1,4 +1,5 @@
 <# output=".razor" #>
+<# description="Kbd is used to display keyboard shortcuts." #>
 
 @using Blazor.DaisyUI.Enums
 @using BlazorComponentUtilities

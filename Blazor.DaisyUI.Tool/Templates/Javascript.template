@@ -1,4 +1,5 @@
 <# output=".cs" #>
+<# description="Component that enables the use of Javascript" #>
 <# sub-path="Base" #>
 
 using Microsoft.AspNetCore.Components;

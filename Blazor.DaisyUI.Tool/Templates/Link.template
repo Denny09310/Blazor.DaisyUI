@@ -1,4 +1,5 @@
 <# output=".razor" #>
+<# description="Link adds the missing underline style to links." #>
 
 @using Blazor.DaisyUI.Enums
 @using BlazorComponentUtilities

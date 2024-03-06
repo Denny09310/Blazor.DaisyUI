@@ -1,4 +1,5 @@
 <# output=".razor" #>
+<# description="Buttons allow the user to take actions or make choices." #>
 <# depends-on="PolymorphComponent" #>
 
 @using BlazorComponentUtilities
