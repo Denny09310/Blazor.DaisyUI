@@ -1,0 +1,48 @@
+<# output=".razor" #>
+<# description="Accordion is used for showing and hiding content but only one item can stay open at a time." #>
+<# depdends-on="AccordionItem" #>
+<# sub-path="Accordion" #>
+
+@using BlazorComponentUtilities
+
+@namespace Blazor.DaisyUI
+
+@typeparam T
+
+<div class="join join-vertical">
+
+    @foreach (var item in Items)
+    {
+        <div @attributes="AdditionalAttributes" class="@Class">
+            <input type="radio" name="@_accordionId" />
+
+            @ChildContent(item)
+        </div>
+    }
+
+</div>
+
+@code
+{
+    private readonly string _accordionId = Guid.NewGuid().ToString();
+
+    [Parameter, EditorRequired]
+    public required RenderFragment<T> ChildContent { get; set; }
+
+    [Parameter, EditorRequired]
+    public required Func<T, string> KeySelector { get; set; }
+
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public IEnumerable<T> Items { get; set; } = [];
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
+
+    protected string Class => new CssBuilder("join-item collapse")
+        .AddClass(Icon, !string.IsNullOrWhiteSpace(Icon))
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+}

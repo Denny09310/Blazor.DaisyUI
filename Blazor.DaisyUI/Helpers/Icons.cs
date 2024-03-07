@@ -2,7 +2,7 @@
 
 namespace Blazor.DaisyUI.Helpers;
 
-public class Icons
+public class AlertIcon
 {
     private const string Error = "<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"width: 1.5rem; height: 1.5rem; flex-shrink: 0; stroke: ;\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z\" /></svg>";
     private const string Info = "<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"width: 1.5rem; height: 1.5rem; flex-shrink: 0; stroke: ;\" fill=\"none\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg>";
@@ -26,4 +26,10 @@ public class Icons
         var indexOfStart = icon.IndexOf(placeholder);
         return icon.Insert(indexOfStart + placeholder.Length, stroke);
     }
+}
+
+public class AccordionIcon
+{
+    public const string Arrow = "collapse-arrow";
+    public const string Plus = "collapse-plus";
 }
