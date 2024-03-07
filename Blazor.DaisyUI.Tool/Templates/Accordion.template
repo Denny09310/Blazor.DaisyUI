@@ -1,7 +1,7 @@
 <# output=".razor" #>
-<# description="Accordion is used for showing and hiding content but only one item can stay open at a time." #>
-<# depdends-on="AccordionItem" #>
 <# sub-path="Accordion" #>
+<# description="Accordion is used for showing and hiding content but only one item can stay open at a time." #>
+<# depends-on="AccordionItem" #>
 
 @using BlazorComponentUtilities
 
