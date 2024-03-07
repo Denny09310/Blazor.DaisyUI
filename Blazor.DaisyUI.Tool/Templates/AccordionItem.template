@@ -1,0 +1,21 @@
+<# output=".razor" #>
+<# description="Accordion is used for showing and hiding content but only one item can stay open at a time." #>
+<# sub-path="Accordion" #>
+
+@namespace Blazor.DaisyUI
+
+<div class="collapse-title text-xl font-medium">
+    @Header
+</div>
+<div class="collapse-content">
+    @Content
+</div>
+
+@code
+{
+    [Parameter]
+    public RenderFragment? Header { get; set; }
+
+    [Parameter]
+    public RenderFragment? Content { get; set; }
+}

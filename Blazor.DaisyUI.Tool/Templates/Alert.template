@@ -52,7 +52,7 @@
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    public MarkupString DefaultIcon => new(Icons.GetAlertIcon(Variant, CurrentColor));
+    public MarkupString DefaultIcon => new(AlertIcon.GetAlertIcon(Variant, CurrentColor));
 
     public string SelectVariant() => Variant switch
     {
