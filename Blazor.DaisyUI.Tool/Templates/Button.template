@@ -1,6 +1,6 @@
 <# output=".razor" #>
 <# description="Toggle is a checkbox that is styled to look like a switch button." #>
-PolymorphComponent
+<# depends-on="PolymorphComponent" #>
 
 @using BlazorComponentUtilities
 @using Blazor.DaisyUI.Enums
