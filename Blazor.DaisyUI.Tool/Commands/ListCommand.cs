@@ -18,7 +18,7 @@ internal sealed class ListCommand(IGitHubClient github, ITemplateDownloader down
         var table = new Table { Border = TableBorder.Rounded };
         await AnsiConsole.Live(table).StartAsync(async (context) =>
         {
-            table.AddColumns("Name", "Description", "Dependencies", "Tags");
+            table.AddColumns("Name", "Description", "Dependencies");
             context.Refresh();
 
             foreach (var template in templates)
@@ -34,7 +34,7 @@ internal sealed class ListCommand(IGitHubClient github, ITemplateDownloader down
                 var description = headers.FirstOrDefault(header => header.Key == "description")?.Value ?? string.Empty;
                 var hasDependencies = dependencies.Any().ToString();
 
-                table.AddRow(name, description, hasDependencies, string.Empty);
+                table.AddRow(name, description, hasDependencies);
                 context.Refresh();
             }
 

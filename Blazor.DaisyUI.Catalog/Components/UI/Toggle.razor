@@ -1,4 +1,4 @@
-@using BlazorComponentUtilities
+﻿@using BlazorComponentUtilities
 @using Blazor.DaisyUI.Enums
 
 @namespace Blazor.DaisyUI
@@ -11,7 +11,7 @@
 }
 else
 {
-    <div class="w-52 form-control">
+    <div class="form-control w-52">
         <label class="label cursor-pointer">
             <span class="label-text">
 
@@ -76,16 +76,16 @@ else
 
     private string SelectVariant() => Variant switch
     {
-        Variant.Neutral => "btn-neutral",
-        Variant.Primary => "btn-primary",
-        Variant.Secondary => "btn-secondary",
-        Variant.Accent => "btn-accent",
-        Variant.Success => "btn-success",
-        Variant.Warning => "btn-warning",
-        Variant.Info => "btn-info",
-        Variant.Error => "btn-error",
-        Variant.Ghost => "btn-ghost",
-        Variant.Link => "btn-link",
+        Variant.Neutral => "toggle-neutral",
+        Variant.Primary => "toggle-primary",
+        Variant.Secondary => "toggle-secondary",
+        Variant.Accent => "toggle-accent",
+        Variant.Success => "toggle-success",
+        Variant.Warning => "toggle-warning",
+        Variant.Info => "toggle-info",
+        Variant.Error => "toggle-error",
+        Variant.Ghost => "toggle-ghost",
+        Variant.Link => "toggle-link",
         _ => throw new NotImplementedException()
     };
 
