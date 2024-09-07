@@ -1,0 +1,26 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<Tabs @bind-Value="ActiveTab" Variant="Enums.TabsVariant.Boxed" DefaultValue="home" class="w-fit">
+    <TabList>
+        <TabsTrigger Value="home">Home</TabsTrigger>
+        <TabsTrigger Value="about">About</TabsTrigger>
+    </TabList>
+</Tabs>
+
+@switch (ActiveTab)
+{
+    case "home":
+        <p>This is the home content</p>
+        break;
+
+    case "about":
+        <p>This is the about content</p>
+        break;
+}
+
+@code
+{
+    private string ActiveTab { get; set; } = "home";
+}
