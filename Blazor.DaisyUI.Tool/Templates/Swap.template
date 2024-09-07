@@ -41,7 +41,7 @@
     [Parameter(CaptureUnmatchedValues =true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    public string Class => new CssBuilder("swap")
+    protected string Class => new CssBuilder("swap")
         .AddClass("swap-active", Active)
         .AddClass(SelectAnimation, Animation is not Animation.None)
         .AddClassFromAttributes(AdditionalAttributes)

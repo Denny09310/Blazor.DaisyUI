@@ -13,7 +13,7 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    public string Class => new CssBuilder("progress")
+    private string Class => new CssBuilder("progress")
         .AddClass(SelectVariant, Variant is not Variant.None)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();

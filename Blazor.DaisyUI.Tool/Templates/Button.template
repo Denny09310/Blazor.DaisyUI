@@ -69,7 +69,7 @@
 
     public bool ShowIcon => Icon is not null && !Loading;
 
-    public string Class => new CssBuilder("btn")
+    protected string Class => new CssBuilder("btn")
         .AddClass("glass", Glass)
         .AddClass("no-animation", NoAnimation)
         .AddClass("btn-outline", Outline)
@@ -87,12 +87,12 @@
         Variant.Primary => "btn-primary",
         Variant.Secondary => "btn-secondary",
         Variant.Accent => "btn-accent",
+        Variant.Ghost => "btn-ghost",
+        Variant.Link => "btn-link",
         Variant.Success => "btn-success",
         Variant.Warning => "btn-warning",
         Variant.Info => "btn-info",
         Variant.Error => "btn-error",
-        Variant.Ghost => "btn-ghost",
-        Variant.Link => "btn-link",
         _ => throw new NotImplementedException()
     };
 

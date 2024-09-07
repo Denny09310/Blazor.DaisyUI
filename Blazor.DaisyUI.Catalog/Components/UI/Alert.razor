@@ -44,14 +44,14 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    public string Class => new CssBuilder("alert")
+    private string Class => new CssBuilder("alert")
         .AddClass(SelectVariant, CurrentColor)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    public MarkupString DefaultIcon => new(Icons.GetAlertIcon(Variant, CurrentColor));
+    private MarkupString DefaultIcon => new(AlertIcon.GetAlertIcon(Variant, CurrentColor));
 
-    public string SelectVariant() => Variant switch
+    private string SelectVariant() => Variant switch
     {
         Variant.Info => "alert-info",
         Variant.Success => "alert-success",
