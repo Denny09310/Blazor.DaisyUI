@@ -1,5 +1,6 @@
 <# output=".razor" #>
 <# description="Tabs can be used to show a list of links in a tabbed format." #>
+<# sub-path="Tabs" #>
 
 @namespace Blazor.DaisyUI
 @using Blazor.DaisyUI.Enums
