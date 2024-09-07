@@ -34,7 +34,7 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    protected string Class => new CssBuilder("drawer")
+    private string Class => new CssBuilder("drawer")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 }

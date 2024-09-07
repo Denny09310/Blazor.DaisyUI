@@ -25,7 +25,7 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    protected string Class => new CssBuilder("badge")
+    private string Class => new CssBuilder("badge")
         .AddClass("badge-outline", when: Outline)
         .AddClass(SwitchSize, when: Size is not Size.None)
         .AddClass(SwitchVariant, when: Variant is not Variant.None)

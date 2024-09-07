@@ -21,7 +21,7 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    protected string Class => new CssBuilder("kbd")
+    private string Class => new CssBuilder("kbd")
         .AddClass(SelectSize, Size is not Size.None)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();

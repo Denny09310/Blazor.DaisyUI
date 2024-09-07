@@ -47,14 +47,14 @@
         .AddClass(SelectStatus, when: Online.HasValue)
         .Build();
 
-    public string InnerClass => new CssBuilder()
+    private string InnerClass => new CssBuilder()
         .AddClass("rounded-full", Rounded)
         .AddClass("bg-base-300 text-base-content", !string.IsNullOrEmpty(Initials))
         .AddClass(SwitchSize, Size is not Size.None)
         .AddClass(SwitchMask, !Rounded && Mask is not Mask.None)
         .Build();
 
-    public string TextClass => new CssBuilder()
+    private string TextClass => new CssBuilder()
         .AddClass(SwitchTextSize, when: Size is not Size.None)
         .Build();
 

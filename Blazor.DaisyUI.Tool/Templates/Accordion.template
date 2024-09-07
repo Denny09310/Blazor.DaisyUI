@@ -41,7 +41,7 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
 
-    protected string Class => new CssBuilder("join-item collapse")
+    private string Class => new CssBuilder("join-item collapse")
         .AddClass(Icon, !string.IsNullOrWhiteSpace(Icon))
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
