@@ -110,13 +110,13 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    protected string Class => new CssBuilder("carousel")
+    private string Class => new CssBuilder("carousel")
         .AddClass(SelectOrientation, Orientation is not Orientation.Horizontal)
         .AddClass(SelectSnap, Snap is not Snap.Start)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    public string InnerClass => new CssBuilder("carousel-item")
+    private string InnerClass => new CssBuilder("carousel-item")
         .AddClass(ItemClass)
         .AddClass("relative w-full", ShowNavigation)
         .Build();

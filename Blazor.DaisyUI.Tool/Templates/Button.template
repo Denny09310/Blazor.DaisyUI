@@ -1,7 +1,3 @@
-<# output=".razor" #>
-<# description="Buttons allow the user to take actions or make choices." #>
-<# depends-on="PolymorphComponent" #>
-
 @using BlazorComponentUtilities
 @using Blazor.DaisyUI.Enums
 
@@ -73,7 +69,7 @@
 
     public bool ShowIcon => Icon is not null && !Loading;
 
-    protected string Class => new CssBuilder("btn")
+    private string Class => new CssBuilder("btn")
         .AddClass("glass", Glass)
         .AddClass("no-animation", NoAnimation)
         .AddClass("btn-outline", Outline)

@@ -39,7 +39,7 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    protected string Class => new CssBuilder("dropdown")
+    private string Class => new CssBuilder("dropdown")
         .AddClass("dropdown-end", End)
         .AddClass("dropdown-hover", Hover)
         .AddClass("dropdown-open", Open)
