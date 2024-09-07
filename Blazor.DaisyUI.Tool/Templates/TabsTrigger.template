@@ -1,5 +1,6 @@
 <# output=".razor" #>
 <# description="A tab item responsible of changing the active tab." #>
+<# sub-path="Tabs" #>
 <# depends-on="PolymorphComponent" #>
 
 @namespace Blazor.DaisyUI
