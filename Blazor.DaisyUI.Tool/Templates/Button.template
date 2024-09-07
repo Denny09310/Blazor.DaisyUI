@@ -73,7 +73,7 @@
 
     public bool ShowIcon => Icon is not null && !Loading;
 
-    protected string Class => new CssBuilder("btn")
+    private string Class => new CssBuilder("btn")
         .AddClass("glass", Glass)
         .AddClass("no-animation", NoAnimation)
         .AddClass("btn-outline", Outline)
