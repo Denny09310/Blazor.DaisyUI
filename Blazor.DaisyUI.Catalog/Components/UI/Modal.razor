@@ -73,7 +73,7 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
 
-    protected string Class => new CssBuilder("modal")
+    private string Class => new CssBuilder("modal")
         .AddClass("modal-open", Open)
         .AddClass("modal-bottom sm:modal-middle", Responsive)
         .AddClass(SelectPosition, !Responsive)

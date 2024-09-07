@@ -1,0 +1,72 @@
+﻿@namespace Blazor.DaisyUI
+@using Blazor.DaisyUI.Enums
+@using BlazorComponentUtilities
+
+<CascadingValue Value="this">
+    <div @attributes="AdditionalAttributes" role="tablist" class="@Class" data-active-tab="@Value">
+        @TabList
+    </div>
+</CascadingValue>
+
+@code
+{
+    [Parameter]
+    public RenderFragment? TabList { get; set; }
+
+    [Parameter]
+    public string? DefaultValue { get; set; }
+
+    [Parameter]
+    public string? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<string?> ValueChanged { get; set; }
+
+    [Parameter]
+    public TabsVariant Variant { get; set; }
+
+    [Parameter]
+    public Size Size { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
+
+    private string Class => new CssBuilder("tabs")
+        .AddClass(SelectVariant, Variant is not TabsVariant.None)
+        .AddClass(SelectSize, Size is not Size.None)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    protected override void OnInitialized()
+    {
+        Value = DefaultValue;
+    }
+
+    public async Task SetActiveTab(string tabId)
+    {
+        if (tabId != Value)
+        {
+            Value = tabId;
+
+            await ValueChanged.InvokeAsync(Value);
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    private string SelectSize() => Size switch
+    {
+        Size.Xs => "tabs-xs",
+        Size.Sm => "tabs-sm",
+        Size.Md => "tabs-md",
+        Size.Lg => "tabs-lg",
+        _ => throw new NotImplementedException(),
+    };
+
+    private string SelectVariant() => Variant switch
+    {
+        TabsVariant.Lifted => "tabs-lifted",
+        TabsVariant.Boxed => "tabs-boxed",
+        TabsVariant.Bordered => "tabs-bordered",
+        _ => throw new NotImplementedException(),
+    };
+}
