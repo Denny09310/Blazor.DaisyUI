@@ -20,7 +20,7 @@
     [Parameter]
     public Variant Variant { get; set; }
 
-    protected string Class => new CssBuilder("link")
+    private string Class => new CssBuilder("link")
         .AddClass("link-hover", Hover)
         .AddClass(SelectVariant, Variant is not Variant.None)
         .AddClassFromAttributes(AdditionalAttributes)

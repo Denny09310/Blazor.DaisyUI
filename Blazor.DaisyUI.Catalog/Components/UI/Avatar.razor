@@ -39,19 +39,19 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    public string ContainerClass => new CssBuilder("avatar")
+    private string ContainerClass => new CssBuilder("avatar")
         .AddClass("placeholder", when: !string.IsNullOrEmpty(Initials))
         .AddClass(SelectStatus, when: Online.HasValue)
         .Build();
 
-    public string InnerClass => new CssBuilder()
+    private string InnerClass => new CssBuilder()
         .AddClass("rounded-full", Rounded)
         .AddClass("bg-base-300 text-base-content", !string.IsNullOrEmpty(Initials))
         .AddClass(SelectSize, Size is not Size.None)
         .AddClass(SelectMask, !Rounded && Mask is not Mask.None)
         .Build();
 
-    public string TextClass => new CssBuilder()
+    private string TextClass => new CssBuilder()
         .AddClass(SwitchTextSize, when: Size is not Size.None)
         .Build();
 

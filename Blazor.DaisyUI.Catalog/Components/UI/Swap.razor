@@ -38,13 +38,13 @@
     [Parameter(CaptureUnmatchedValues =true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    protected string Class => new CssBuilder("swap")
+    private string Class => new CssBuilder("swap")
         .AddClass("swap-active", Active)
         .AddClass(SelectAnimation, Animation is not Animation.None)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    public bool ShouldFlip => Animation is not Animation.Flip;
+    private bool ShouldFlip => Animation is not Animation.Flip;
 
     private Task OnCheckedChanged(bool value)
     {

@@ -1,4 +1,4 @@
-@using BlazorComponentUtilities
+﻿@using BlazorComponentUtilities
 @using Blazor.DaisyUI.Enums
 
 @namespace Blazor.DaisyUI
@@ -11,7 +11,7 @@
 }
 else
 {
-    <div class="w-52 form-control">
+    <div class="form-control w-52">
         <label class="label cursor-pointer">
             <span class="label-text">
 
@@ -56,9 +56,9 @@ else
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    public bool HasNoLabels => string.IsNullOrEmpty(Label) && (string.IsNullOrEmpty(OnLabel) || string.IsNullOrEmpty(OffLabel));
+    private bool HasNoLabels => string.IsNullOrEmpty(Label) && (string.IsNullOrEmpty(OnLabel) || string.IsNullOrEmpty(OffLabel));
 
-    protected string Class => new CssBuilder("toggle")
+    private string Class => new CssBuilder("toggle")
         .AddClass(SelectSize, when: Size is not Size.None)
         .AddClass(SelectVariant, when: Variant is not Variant.None)
         .AddClassFromAttributes(AdditionalAttributes)
